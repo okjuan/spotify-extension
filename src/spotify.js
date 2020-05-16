@@ -2,15 +2,49 @@ const END_POINT = 'https://api.spotify.com';
 
 class Spotify {
   async getDevices(token) {
-    const url = `${END_POINT}/v1/me/player/devices`;
+    try {
+      const url = `${END_POINT}/v1/me/player/devices`;
 
-    const res = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await res.json();
-    return data;
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { devices } = await res.json();
+      return devices
+        ? devices.filter((item) => {
+            return (
+              item.type === 'Computer' && !item.name.includes('Web Player')
+            );
+          })
+        : [];
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async getRecentlyPlayedTrack(token) {
+    const url = `${END_POINT}/v1/me/player/recently-played`;
+
+    try {
+      const res = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      let data = await res.json();
+      if (data && data.items.length) {
+        data = {
+          item: {
+            ...data.items[0].track,
+          },
+        };
+      }
+      return data;
+    } catch (e) {
+      throw e;
+    }
   }
 
   async getPlayingTrack(token) {
@@ -26,12 +60,12 @@ class Spotify {
       const data = await res.json();
       return data;
     } catch (e) {
-      throw e;
+      return null;
     }
   }
 
-  async pause(token) {
-    const url = `${END_POINT}/v1/me/player/pause`;
+  async pause(token, deviceId) {
+    const url = `${END_POINT}/v1/me/player/pause?device_id=${deviceId}`;
 
     try {
       const res = await fetch(url, {
@@ -49,8 +83,9 @@ class Spotify {
     }
   }
 
-  async play(token) {
-    const url = `${END_POINT}/v1/me/player/play`;
+  async play(token, deviceId) {
+    console.log('deviceId', deviceId);
+    const url = `${END_POINT}/v1/me/player/play?device_id=${deviceId}`;
 
     try {
       const res = await fetch(url, {
@@ -68,8 +103,8 @@ class Spotify {
     }
   }
 
-  async next(token) {
-    const url = `${END_POINT}/v1/me/player/next`;
+  async next(token, deviceId) {
+    const url = `${END_POINT}/v1/me/player/next?device_id=${deviceId}`;
 
     try {
       const res = await fetch(url, {
@@ -87,8 +122,8 @@ class Spotify {
     }
   }
 
-  async prev(token) {
-    const url = `${END_POINT}/v1/me/player/previous`;
+  async prev(token, deviceId) {
+    const url = `${END_POINT}/v1/me/player/previous?device_id=${deviceId}`;
 
     try {
       const res = await fetch(url, {
@@ -107,12 +142,6 @@ class Spotify {
   }
 
   async getAccessToken(cookies) {
-    /*
-     * clientId
-     * accessToken
-     * accessTokenExpirationTimestampMs
-     * isAnonymous
-     */
     const url = 'https://open.spotify.com/get_access_token';
 
     const res = await fetch(url, {

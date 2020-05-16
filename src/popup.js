@@ -8,18 +8,34 @@ const songTitle = document.getElementById('title');
 const artistName = document.getElementById('artist');
 const coverImage = document.getElementById('cover-photo');
 
+let deviceId;
+
 function load() {
   handleAccessToken(async function (accessToken) {
     const s = new Spotify();
-    const track = await s.getPlayingTrack(accessToken);
-    const { title, artist, coverPhoto, isPlaying } = parseTrack(track);
+    const devices = await s.getDevices(accessToken);
 
-    // update DOM UI
-    songTitle.textContent = title;
-    artistName.textContent = artist;
-    coverImage.style.backgroundImage = `url('${coverPhoto}')`;
+    if (devices.length > 0) {
+      deviceId = devices[0].id;
+      // call to get "playing" track
+      let track = await s.getPlayingTrack(accessToken);
 
-    displayControlButtons(isPlaying ? 'pause' : 'play');
+      // if there is no "playing track"
+      // then get "recently played track"
+      if (!track) {
+        track = await s.getRecentlyPlayedTrack(accessToken);
+        console.log('track', track);
+      }
+
+      const { title, artist, coverPhoto, isPlaying } = parseTrack(track);
+
+      // update DOM UI
+      songTitle.textContent = title;
+      artistName.textContent = artist;
+      coverImage.style.backgroundImage = `url('${coverPhoto}')`;
+
+      displayControlButtons(isPlaying ? 'pause' : 'play');
+    }
   });
 }
 
@@ -63,7 +79,7 @@ btnPause.onclick = function () {
   displayControlButtons('play');
   handleAccessToken(function (accessToken) {
     const s = new Spotify();
-    s.pause(accessToken);
+    s.pause(accessToken, deviceId);
   });
 };
 
@@ -71,14 +87,14 @@ btnPlay.onclick = function () {
   displayControlButtons('pause');
   handleAccessToken(function (accessToken) {
     const s = new Spotify();
-    s.play(accessToken);
+    s.play(accessToken, deviceId);
   });
 };
 
 btnPrev.onclick = function () {
   handleAccessToken(async function (accessToken) {
     const s = new Spotify();
-    s.prev(accessToken);
+    s.prev(accessToken, deviceId);
     // after click next song, call API again to update UI
     load();
   });
@@ -87,7 +103,7 @@ btnPrev.onclick = function () {
 btnNext.onclick = function () {
   handleAccessToken(async function (accessToken) {
     const s = new Spotify();
-    await s.next(accessToken);
+    await s.next(accessToken, deviceId);
     // after click next song, call API again to update UI
     load();
   });

@@ -3,11 +3,14 @@
   "version": "1.0",
   "description": "Spotify player extension",
   "permissions": [
+    "contextMenus",
+    "declarativeContent",
     "tabs",
-    "\u003Call_urls\u003E",
     "activeTab",
     "storage",
-    "cookies"
+    "cookies",
+    "http://*/*",
+    "https://*/*"
   ],
   "manifest_version": 2,
   "options_page": "options.html",
