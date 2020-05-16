@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .mini-spotify-player-body {
+        margin: 0;
+      }
+
+      .mini-spotify-player-wrapper {
+        width: 360px;
+        height: 162px;
+        color: rgba(0, 0, 0, 0.87);
+        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        background-color: #fff;
+        display: flex;
+        border-radius: 4px;
+        /* box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+          0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+          0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
+      }
+
+      .mini-spotify-left-panel {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mini-spotify-left-panel-info {
+        flex: 1 0 auto;
+        padding: 16px;
+      }
+
+      .mini-spotify-left-panel-info-heading {
+        font-size: 1.5rem;
+        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        font-weight: 400;
+        line-height: 1.334;
+        letter-spacing: 0em;
+        margin: 0;
+      }
+
+      .mini-spotify-left-panel-info-sub-heading {
+        font-size: 1rem;
+        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+        font-weight: 400;
+        line-height: 1.75;
+        letter-spacing: 0.00938em;
+        color: rgba(0, 0, 0, 0.54);
+        margin: 0;
+      }
+
+      .mini-spotify-button-base {
+        color: inherit;
+        border: 0;
+        cursor: pointer;
+        margin: 0;
+        display: inline-flex;
+        outline: 0;
+        padding: 0;
+        position: relative;
+        align-items: center;
+        user-select: none;
+        border-radius: 0;
+        vertical-align: middle;
+        justify-content: center;
+        text-decoration: none;
+        background-color: transparent;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .mini-spotify-icon-button-base {
+        flex: 0 0 auto;
+        color: rgba(0, 0, 0, 0.54);
+        padding: 12px;
+        overflow: visible;
+        text-align: center;
+        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        border-radius: 50%;
+      }
+
+      .mini-spotify-right-panel {
+        display: block;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 151px;
+        background-image: url('https://material-ui.com/static/images/cards/live-from-space.jpg');
+      }
+    </style>
+  </head>
+
+  <body class="mini-spotify-player-body">
+    <div class="mini-spotify-player-wrapper">
+      <div class="mini-spotify-left-panel">
+        <div class="mini-spotify-left-panel-info">
+          <h5 class="mini-spotify-left-panel-info-heading">Live From Space</h5>
+          <h6 class="mini-spotify-left-panel-info-sub-heading">Mac Miller</h6>
+        </div>
+
+        <div class="mini-spotify-left-panel-control">
+          <button
+            class="mini-spotify-button-base mini-spotify-icon-button-base"
+            id="prev"
+          >
+            <img src="./icons/previous.svg" />
+          </button>
+
+          <button
+            class="mini-spotify-button-base mini-spotify-icon-button-base"
+            id="pause"
+          >
+            <img src="./icons/pause.svg" />
+          </button>
+
+          <button
+            class="mini-spotify-button-base mini-spotify-icon-button-base"
+            id="play"
+          >
+            <img src="./icons/play.svg" />
+          </button>
+
+          <button
+            class="mini-spotify-button-base mini-spotify-icon-button-base"
+            id="next"
+          >
+            <img src="./icons/next.svg" />
+          </button>
+        </div>
+      </div>
+
+      <div class="mini-spotify-right-panel"></div>
+    </div>
+
+    <script src="token.js"></script>
+    <script src="spotify.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>
