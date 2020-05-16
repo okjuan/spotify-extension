@@ -7,16 +7,16 @@
       }
 
       .mini-spotify-player-wrapper {
-        width: 360px;
-        height: 162px;
+        width: 390px;
+        height: 148px;
         color: rgba(0, 0, 0, 0.87);
         transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
         background-color: #fff;
         display: flex;
         border-radius: 4px;
-        /* box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
           0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-          0px 1px 3px 0px rgba(0, 0, 0, 0.12); */
+          0px 1px 3px 0px rgba(0, 0, 0, 0.12);
       }
 
       .mini-spotify-left-panel {
@@ -30,7 +30,7 @@
       }
 
       .mini-spotify-left-panel-info-heading {
-        font-size: 1.5rem;
+        font-size: 15px;
         font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
         font-weight: 400;
         line-height: 1.334;
@@ -39,13 +39,21 @@
       }
 
       .mini-spotify-left-panel-info-sub-heading {
-        font-size: 1rem;
+        font-size: 11px;
         font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
         font-weight: 400;
         line-height: 1.75;
         letter-spacing: 0.00938em;
         color: rgba(0, 0, 0, 0.54);
         margin: 0;
+      }
+
+      .mini-spotify-left-panel-control {
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+        padding-bottom: 8px;
+        width: 214px;
       }
 
       .mini-spotify-button-base {
@@ -68,6 +76,10 @@
         -webkit-tap-highlight-color: transparent;
       }
 
+      .mini-spotify-button-base:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
       .mini-spotify-icon-button-base {
         flex: 0 0 auto;
         color: rgba(0, 0, 0, 0.54);
@@ -83,18 +95,17 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        width: 151px;
-        background-image: url('https://material-ui.com/static/images/cards/live-from-space.jpg');
+        width: 176px;
       }
     </style>
   </head>
 
   <body class="mini-spotify-player-body">
-    <div class="mini-spotify-player-wrapper">
+    <div id="spotify-mini-player" class="mini-spotify-player-wrapper">
       <div class="mini-spotify-left-panel">
         <div class="mini-spotify-left-panel-info">
-          <h5 class="mini-spotify-left-panel-info-heading">Live From Space</h5>
-          <h6 class="mini-spotify-left-panel-info-sub-heading">Mac Miller</h6>
+          <h5 id="title" class="mini-spotify-left-panel-info-heading"></h5>
+          <h6 id="artist" class="mini-spotify-left-panel-info-sub-heading"></h6>
         </div>
 
         <div class="mini-spotify-left-panel-control">
@@ -128,7 +139,7 @@
         </div>
       </div>
 
-      <div class="mini-spotify-right-panel"></div>
+      <div id="cover-photo" class="mini-spotify-right-panel"></div>
     </div>
 
     <script src="token.js"></script>

@@ -13,7 +13,7 @@ class Spotify {
     return data;
   }
 
-  async getPlayingTrack(token, callback) {
+  async getPlayingTrack(token) {
     const url = `${END_POINT}/v1/me/player/currently-playing?additional_types=track`;
 
     try {
@@ -24,7 +24,7 @@ class Spotify {
       });
 
       const data = await res.json();
-      callback(data);
+      return data;
     } catch (e) {
       throw e;
     }
