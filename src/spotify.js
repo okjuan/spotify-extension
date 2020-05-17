@@ -60,7 +60,7 @@ class Spotify {
       const data = await res.json();
       return data;
     } catch (e) {
-      return null;
+      return;
     }
   }
 
@@ -84,7 +84,6 @@ class Spotify {
   }
 
   async play(token, deviceId) {
-    console.log('deviceId', deviceId);
     const url = `${END_POINT}/v1/me/player/play?device_id=${deviceId}`;
 
     try {

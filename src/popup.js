@@ -9,6 +9,7 @@ const artistName = document.getElementById('artist');
 const coverImage = document.getElementById('cover-photo');
 
 let deviceId;
+let songInfo;
 
 function load() {
   handleAccessToken(async function (accessToken) {
@@ -17,24 +18,43 @@ function load() {
 
     if (devices.length > 0) {
       deviceId = devices[0].id;
-      // call to get "playing" track
-      let track = await s.getPlayingTrack(accessToken);
 
-      // if there is no "playing track"
-      // then get "recently played track"
-      if (!track) {
-        track = await s.getRecentlyPlayedTrack(accessToken);
-        console.log('track', track);
-      }
+      chrome.storage.sync.get(['playingTrack'], async function (result) {
+        const { playingTrack } = result;
+        // call to get "playing" track
+        const track = await s.getPlayingTrack(accessToken);
+        songInfo = parseTrack(track);
 
-      const { title, artist, coverPhoto, isPlaying } = parseTrack(track);
+        if (
+          !playingTrack ||
+          (songInfo && songInfo.title !== playingTrack.title) ||
+          (songInfo && songInfo.isPlaying !== playingTrack.isPlaying)
+        ) {
+          chrome.storage.sync.set({ playingTrack: songInfo });
+        } else {
+          songInfo = playingTrack;
+        }
 
-      // update DOM UI
-      songTitle.textContent = title;
-      artistName.textContent = artist;
-      coverImage.style.backgroundImage = `url('${coverPhoto}')`;
+        const { title, artist, coverPhoto, isPlaying } = songInfo;
 
-      displayControlButtons(isPlaying ? 'pause' : 'play');
+        // update DOM UI
+        title && (songTitle.textContent = title);
+        artist && (artistName.textContent = artist);
+        coverPhoto &&
+          (coverImage.style.backgroundImage = `url('${coverPhoto}')`);
+
+        displayControlButtons(isPlaying ? 'pause' : 'play');
+      });
+    } else {
+      // If there is no devices are opening
+      // then get the track info from cache and modify the state "isPlaying" to false
+      chrome.storage.sync.get(['playingTrack'], async function (result) {
+        const { playingTrack } = result;
+        if (playingTrack) {
+          playingTrack.isPlaying = false;
+          chrome.storage.sync.set({ playingTrack });
+        }
+      });
     }
   });
 }
@@ -55,6 +75,8 @@ function displayControlButtons(mode) {
 }
 
 function parseTrack(rawData) {
+  if (!rawData) return;
+
   const {
     is_playing: isPlaying,
     item: {
@@ -80,6 +102,14 @@ btnPause.onclick = function () {
   handleAccessToken(function (accessToken) {
     const s = new Spotify();
     s.pause(accessToken, deviceId);
+
+    chrome.storage.sync.get(['playingTrack'], async function (result) {
+      const { playingTrack } = result;
+      if (playingTrack) {
+        playingTrack.isPlaying = false;
+        chrome.storage.sync.set({ playingTrack });
+      }
+    });
   });
 };
 
@@ -88,6 +118,14 @@ btnPlay.onclick = function () {
   handleAccessToken(function (accessToken) {
     const s = new Spotify();
     s.play(accessToken, deviceId);
+
+    chrome.storage.sync.get(['playingTrack'], async function (result) {
+      const { playingTrack } = result;
+      if (playingTrack) {
+        playingTrack.isPlaying = true;
+        chrome.storage.sync.set({ playingTrack });
+      }
+    });
   });
 };
 
