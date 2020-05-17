@@ -1,4 +1,8 @@
-const root = document.getElementById('spotify-mini-player');
+const player = document.getElementById('spotify-mini-player');
+const notification = document.getElementById(
+  'spotify-mini-player-notification'
+);
+
 const btnPrev = document.getElementById('prev');
 const btnPause = document.getElementById('pause');
 const btnPlay = document.getElementById('play');
@@ -17,6 +21,8 @@ function load() {
     const devices = await s.getDevices(accessToken);
 
     if (devices.length > 0) {
+      displayBox('player');
+
       deviceId = devices[0].id;
 
       chrome.storage.sync.get(['playingTrack'], async function (result) {
@@ -46,6 +52,10 @@ function load() {
         displayControlButtons(isPlaying ? 'pause' : 'play');
       });
     } else {
+      // Hide player control
+      // Display message inform user to open Spotify Desktop App
+      displayBox('notification');
+
       // If there is no devices are opening
       // then get the track info from cache and modify the state "isPlaying" to false
       chrome.storage.sync.get(['playingTrack'], async function (result) {
@@ -57,44 +67,6 @@ function load() {
       });
     }
   });
-}
-
-load();
-
-function displayControlButtons(mode) {
-  switch (mode) {
-    case 'play':
-      btnPlay.style.display = 'block';
-      btnPause.style.display = 'none';
-      break;
-    case 'pause':
-      btnPlay.style.display = 'none';
-      btnPause.style.display = 'block';
-      break;
-  }
-}
-
-function parseTrack(rawData) {
-  if (!rawData) return;
-
-  const {
-    is_playing: isPlaying,
-    item: {
-      name: title,
-      artists,
-      album: { images },
-    },
-  } = rawData;
-
-  const artist = artists.length > 0 ? artists[0].name : '';
-  const coverPhoto = images.length > 0 ? images[1].url : '';
-
-  return {
-    title,
-    artist,
-    isPlaying,
-    coverPhoto,
-  };
 }
 
 btnPause.onclick = function () {
@@ -146,3 +118,54 @@ btnNext.onclick = function () {
     load();
   });
 };
+
+function displayControlButtons(mode) {
+  switch (mode) {
+    case 'play':
+      btnPlay.style.display = 'block';
+      btnPause.style.display = 'none';
+      break;
+    case 'pause':
+      btnPlay.style.display = 'none';
+      btnPause.style.display = 'block';
+      break;
+  }
+}
+
+function displayBox(mode) {
+  switch (mode) {
+    case 'player':
+      player.style.display = 'flex';
+      notification.style.display = 'none';
+      break;
+    case 'notification':
+      player.style.display = 'none';
+      notification.style.display = 'flex';
+      break;
+  }
+}
+
+function parseTrack(rawData) {
+  if (!rawData) return;
+
+  const {
+    is_playing: isPlaying,
+    item: {
+      name: title,
+      artists,
+      album: { images },
+    },
+  } = rawData;
+
+  const artist = artists.length > 0 ? artists[0].name : '';
+  const coverPhoto = images.length > 0 ? images[1].url : '';
+
+  return {
+    title,
+    artist,
+    isPlaying,
+    coverPhoto,
+  };
+}
+
+load();

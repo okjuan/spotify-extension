@@ -1,7 +1,7 @@
 {
   "name": "Mini Spotity Player",
   "version": "1.0",
-  "description": "Spotify player extension",
+  "description": "Spotify player Chrome's extension",
   "permissions": [
     "contextMenus",
     "declarativeContent",
@@ -21,16 +21,10 @@
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "images/spotify-mini-player-16.png",
-      "32": "images/spotify-mini-player-32.png",
-      "48": "images/spotify-mini-player-48.png",
       "128": "images/spotify-mini-player-128.png"
     }
   },
   "icons": {
-    "16": "images/spotify-mini-player-16.png",
-    "32": "images/spotify-mini-player-32.png",
-    "48": "images/spotify-mini-player-48.png",
     "128": "images/spotify-mini-player-128.png"
   }
 }
