@@ -6,18 +6,26 @@ class Spotify {
       const url = `${END_POINT}/v1/me/player/devices`;
 
       const res = await fetch(url, {
+        cache: 'no-cache',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      const { devices } = await res.json();
-      return devices
-        ? devices.filter((item) => {
+      const data = await res.json();
+
+      let devices = [];
+      if (data.devices) {
+        devices = data.devices.filter((item) => {
           return (
             item.type === 'Computer' && !item.name.includes('Web Player')
           );
-        })
-        : [];
+        });
+      }
+
+      return {
+        ...data,
+        devices,
+      };
     } catch (e) {
       throw e;
     }
@@ -80,13 +88,19 @@ class Spotify {
     }
   }
 
-  async play(token, deviceId) {
+  async play(token, deviceId, songInfo) {
     const url = `${END_POINT}/v1/me/player/play?device_id=${deviceId}`;
+
+    const postData = {
+      uris: [songInfo.uri]
+    };
 
     try {
       await fetch(url, {
         method: 'PUT',
+        body: JSON.stringify(postData),
         headers: {
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
       });
@@ -158,7 +172,6 @@ class Spotify {
 
   async getAccessToken(cookies) {
     const url = 'https://open.spotify.com/get_access_token';
-
     const res = await fetch(url, {
       cookie: JSON.stringify(cookies),
     });

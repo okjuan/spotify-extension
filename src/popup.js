@@ -1,7 +1,6 @@
 const player = document.getElementById('spotify-mini-player');
-const notification = document.getElementById(
-  'spotify-mini-player-notification'
-);
+const notification = document.getElementById('spotify-mini-player-notification');
+const loginNotification = document.getElementById('spotify-mini-player-login-notification');
 
 const btnPrev = document.getElementById('prev');
 const btnPause = document.getElementById('pause');
@@ -14,31 +13,52 @@ const coverImage = document.getElementById('cover-photo');
 
 let deviceId;
 let songInfo;
+let tokenGlobal;
 
 function load() {
-  handleAccessToken(async function (accessToken) {
+  handleAccessToken(async function (token) {
+    tokenGlobal = token;
+    const { accessToken, isAnonymous } = token;
+
+    // If user "isAnonymous" is true
+    // mean user is not login
+    if (isAnonymous) {
+      displayBox('login-notification');
+      return;
+    }
+
     const s = new Spotify();
-    const devices = await s.getDevices(accessToken);
+    const { devices } = await s.getDevices(accessToken);
 
     if (devices.length > 0) {
       displayBox('player');
-
       deviceId = devices[0].id;
-
       chrome.storage.sync.get(['playingTrack'], async function (result) {
         const { playingTrack } = result;
         // call to get "playing" track
         const track = await s.getPlayingTrack(accessToken);
         songInfo = parseTrack(track);
 
+        // Update last song played
+        // In case suddently shut down Spotify app
         if (
           !playingTrack ||
           (songInfo && songInfo.title !== playingTrack.title) ||
-          (songInfo && songInfo.isPlaying !== playingTrack.isPlaying)
+          (songInfo && songInfo.isPlaying !== playingTrack.isPlaying) ||
+          (songInfo && songInfo.uri !== playingTrack.uri)
         ) {
           chrome.storage.sync.set({ playingTrack: songInfo });
         } else {
-          songInfo = playingTrack;
+          // if the songInfo is undefined
+          // mean the Spotify App is not in active mode
+          if (!songInfo) {
+            songInfo = {
+              ...playingTrack,
+              isPlaying: false,
+            };
+          } else {
+            songInfo = playingTrack;
+          }
         }
 
         if (songInfo) {
@@ -56,7 +76,7 @@ function load() {
     } else {
       // Hide player control
       // Display message inform user to open Spotify Desktop App
-      displayBox('notification');
+      displayBox('no-device-open-notification');
 
       // If there is no devices are opening
       // then get the track info from cache and modify the state "isPlaying" to false
@@ -73,52 +93,48 @@ function load() {
 
 btnPause.onclick = function () {
   displayControlButtons('play');
-  handleAccessToken(function (accessToken) {
-    const s = new Spotify();
-    s.pause(accessToken, deviceId);
+  const { accessToken } = tokenGlobal;
+  const s = new Spotify();
+  s.pause(accessToken, deviceId);
 
-    chrome.storage.sync.get(['playingTrack'], async function (result) {
-      const { playingTrack } = result;
-      if (playingTrack) {
-        playingTrack.isPlaying = false;
-        chrome.storage.sync.set({ playingTrack });
-      }
-    });
+  chrome.storage.sync.get(['playingTrack'], async function (result) {
+    const { playingTrack } = result;
+    if (playingTrack) {
+      playingTrack.isPlaying = false;
+      chrome.storage.sync.set({ playingTrack });
+    }
   });
 };
 
 btnPlay.onclick = function () {
   displayControlButtons('pause');
-  handleAccessToken(function (accessToken) {
-    const s = new Spotify();
-    s.play(accessToken, deviceId);
+  const s = new Spotify();
+  const { accessToken } = tokenGlobal;
+  s.play(accessToken, deviceId, songInfo);
 
-    chrome.storage.sync.get(['playingTrack'], async function (result) {
-      const { playingTrack } = result;
-      if (playingTrack) {
-        playingTrack.isPlaying = true;
-        chrome.storage.sync.set({ playingTrack });
-      }
-    });
+  chrome.storage.sync.get(['playingTrack'], async function (result) {
+    const { playingTrack } = result;
+    if (playingTrack) {
+      playingTrack.isPlaying = true;
+      chrome.storage.sync.set({ playingTrack });
+    }
   });
 };
 
 btnPrev.onclick = function () {
-  handleAccessToken(async function (accessToken) {
-    const s = new Spotify();
-    s.prev(accessToken, deviceId);
-    // after click next song, call API again to update UI
-    load();
-  });
+  const s = new Spotify();
+  const { accessToken } = tokenGlobal;
+  s.prev(accessToken, deviceId);
+  // after click next song, call API again to update UI
+  load();
 };
 
 btnNext.onclick = function () {
-  handleAccessToken(async function (accessToken) {
-    const s = new Spotify();
-    await s.next(accessToken, deviceId);
-    // after click next song, call API again to update UI
-    load();
-  });
+  const s = new Spotify();
+  const { accessToken } = tokenGlobal;
+  s.next(accessToken, deviceId);
+  // after click next song, call API again to update UI
+  load();
 };
 
 function displayControlButtons(mode) {
@@ -139,10 +155,17 @@ function displayBox(mode) {
     case 'player':
       player.style.display = 'flex';
       notification.style.display = 'none';
+      loginNotification.style.display = 'none';
       break;
-    case 'notification':
+    case 'no-device-open-notification':
       player.style.display = 'none';
       notification.style.display = 'flex';
+      loginNotification.style.display = 'none';
+      break;
+    case 'login-notification':
+      player.style.display = 'none';
+      notification.style.display = 'none';
+      loginNotification.style.display = 'flex';
       break;
   }
 }
@@ -156,6 +179,7 @@ function parseTrack(rawData) {
       name: title,
       artists,
       album: { images },
+      uri,
     },
   } = rawData;
 
@@ -167,6 +191,7 @@ function parseTrack(rawData) {
     artist,
     isPlaying,
     coverPhoto,
+    uri,
   };
 }
 
