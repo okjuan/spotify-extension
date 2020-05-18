@@ -16,9 +16,7 @@ class Spotify {
       let devices = [];
       if (data.devices) {
         devices = data.devices.filter((item) => {
-          return (
-            item.type === 'Computer' && !item.name.includes('Web Player')
-          );
+          return item.type === 'Computer' && !item.name.includes('Web Player');
         });
       }
 
@@ -42,21 +40,20 @@ class Spotify {
       });
 
       let data = await res.json();
+
       if (data && data.items.length) {
-        data = {
-          item: {
-            ...data.items[0].track,
-          },
-        };
+        const { track: item, context } = data.items[0];
+        data = { item, context };
       }
+
       return data;
     } catch (e) {
-      throw e;
+      return;
     }
   }
 
-  async getPlayingTrack(token) {
-    const url = `${END_POINT}/v1/me/player/currently-playing?additional_types=track`;
+  async getCurrentPlayBack(token) {
+    const url = `${END_POINT}/v1/me/player?additional_types=track`;
 
     try {
       const res = await fetch(url, {
@@ -82,7 +79,6 @@ class Spotify {
           Authorization: `Bearer ${token}`,
         },
       });
-
     } catch (e) {
       throw e;
     }
@@ -91,9 +87,21 @@ class Spotify {
   async play(token, deviceId, songInfo) {
     const url = `${END_POINT}/v1/me/player/play?device_id=${deviceId}`;
 
-    const postData = {
-      uris: [songInfo.uri]
+    let postData = {
+      uris: [songInfo.uri],
+      position_ms: songInfo.progressMs,
     };
+
+    // If the song is being played in album, playlist, ...
+    if (songInfo.context) {
+      postData = {
+        position_ms: songInfo.progressMs, // the time that current plays
+        context_uri: songInfo.context.uri, // current album, playlist, ...
+        offset: {
+          uri: songInfo.uri, // which song in album, playlist need to resume
+        },
+      };
+    }
 
     try {
       await fetch(url, {
@@ -104,7 +112,6 @@ class Spotify {
           Authorization: `Bearer ${token}`,
         },
       });
-
     } catch (e) {
       throw e;
     }
