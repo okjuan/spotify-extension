@@ -13,10 +13,10 @@ class Spotify {
       const { devices } = await res.json();
       return devices
         ? devices.filter((item) => {
-            return (
-              item.type === 'Computer' && !item.name.includes('Web Player')
-            );
-          })
+          return (
+            item.type === 'Computer' && !item.name.includes('Web Player')
+          );
+        })
         : [];
     } catch (e) {
       throw e;
@@ -68,16 +68,13 @@ class Spotify {
     const url = `${END_POINT}/v1/me/player/pause?device_id=${deviceId}`;
 
     try {
-      const res = await fetch(url, {
+      await fetch(url, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (res.status === '204') {
-        alert('pause');
-      }
     } catch (e) {
       throw e;
     }
@@ -87,16 +84,13 @@ class Spotify {
     const url = `${END_POINT}/v1/me/player/play?device_id=${deviceId}`;
 
     try {
-      const res = await fetch(url, {
+      await fetch(url, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      if (res.status === '204') {
-        alert('pause');
-      }
     } catch (e) {
       throw e;
     }
@@ -106,16 +100,12 @@ class Spotify {
     const url = `${END_POINT}/v1/me/player/next?device_id=${deviceId}`;
 
     try {
-      const res = await fetch(url, {
+      await fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      if (res.status === '204') {
-        alert('pause');
-      }
     } catch (e) {
       throw e;
     }
@@ -125,16 +115,42 @@ class Spotify {
     const url = `${END_POINT}/v1/me/player/previous?device_id=${deviceId}`;
 
     try {
-      const res = await fetch(url, {
+      await fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+    } catch (e) {
+      throw e;
+    }
+  }
 
-      if (res.status === '204') {
-        alert('pause');
-      }
+  async shuffle(token, state, deviceId) {
+    const url = `${END_POINT}/v1/me/player/shuffle?state=${state}&device_id=${deviceId}`;
+
+    try {
+      await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  async repeat(token, state, deviceId) {
+    const url = `${END_POINT}/v1/me/player/repeat?state=${state}&device_id=${deviceId}`;
+
+    try {
+      await fetch(url, {
+        method: 'PUT',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     } catch (e) {
       throw e;
     }

@@ -41,15 +41,17 @@ function load() {
           songInfo = playingTrack;
         }
 
-        const { title, artist, coverPhoto, isPlaying } = songInfo;
-
-        // update DOM UI
-        title && (songTitle.textContent = title);
-        artist && (artistName.textContent = artist);
-        coverPhoto &&
-          (coverImage.style.backgroundImage = `url('${coverPhoto}')`);
-
-        displayControlButtons(isPlaying ? 'pause' : 'play');
+        if (songInfo) {
+          const { title, artist, coverPhoto, isPlaying } = songInfo;
+          // update DOM UI
+          title && (songTitle.textContent = title);
+          artist && (artistName.textContent = artist);
+          coverPhoto &&
+            (coverImage.style.backgroundImage = `url('${coverPhoto}')`);
+          displayControlButtons(isPlaying ? 'pause' : 'play');
+        } else {
+          displayControlButtons('play');
+        }
       });
     } else {
       // Hide player control

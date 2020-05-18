@@ -10,7 +10,10 @@ Spotify mini player Chrome's exntesion
 
 ## Motivation
 
-We spend most of our time on browser for working or enjoy reading news or looking for information. We rarely want to switch to another window because we are in focus mode. And if we don't have mood to listen some song or we want to pause. To do that, we have to switch to music app and make some actions that we want. Sometime switching context make us loose focus. So it happened to me. So I made this small extension to reduce the frequency of switching context.
+We spend most of our time on browser for working, enjoy reading news or looking for information. We rarely want to switch to another window because we are in focus mode. Or while checking out youtube, some good melodies hit your ear and you may want to add that song to your Spotify playlist. To make things easier, this extension was born.
+
+- Avoid switching context while you're focusing on your browser by providing mini player which helps to control Spotify easier on the browser.
+- Quick right click to search song by name on Spotify site.
 
 ## How it looks like?
 
@@ -26,7 +29,7 @@ We spend most of our time on browser for working or enjoy reading news or lookin
 
 ### Context menu
 
-Search song name with Chrome's context menu
+Search song by name with Chrome's context menu
 
 <img width="570" alt="Screen Shot 2020-05-17 at 23 57 13" src="https://user-images.githubusercontent.com/6290720/82152275-fd489780-989a-11ea-9334-5aed74a49967.png">
 
