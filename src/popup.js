@@ -36,7 +36,14 @@ function load() {
       chrome.storage.sync.get(['playingTrack'], async function (result) {
         const { playingTrack } = result;
         // call to get "playing" track
-        const track = await s.getPlayingTrack(accessToken);
+        let track = await s.getPlayingTrack(accessToken);
+
+        // If it is a new user & the desktop app is not active
+        // Get the recently played track
+        if (!track && !playingTrack) {
+          track = await s.getRecentlyPlayedTrack(accessToken);
+        }
+
         songInfo = parseTrack(track);
 
         // Update last song played
