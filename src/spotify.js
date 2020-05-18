@@ -15,9 +15,7 @@ class Spotify {
 
       let devices = [];
       if (data.devices) {
-        devices = data.devices.filter((item) => {
-          return item.type === 'Computer' && !item.name.includes('Web Player');
-        });
+        devices = data.devices.filter((item) => item.type === 'Computer');
       }
 
       return {
