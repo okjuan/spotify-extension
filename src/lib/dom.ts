@@ -11,8 +11,7 @@ export function displayTrackInfo(playback: TrackInfo) {
   // update DOM UI
   title && (songTitle.textContent = title);
   artist && (artistName.textContent = artist);
-  coverPhoto &&
-    (coverImage.style.backgroundImage = `url('${coverPhoto}')`);
+  coverPhoto && (coverImage.style.backgroundImage = `url('${coverPhoto}')`);
 }
 
 export function displayControlButtons(mode: ButtonType) {
@@ -61,7 +60,6 @@ export function registerButtonEvents(sp: Spotify, playback, render: () => void) 
   const btnPlay = document.getElementById('play');
   const btnNext = document.getElementById('next');
 
-
   btnPause.onclick = async function () {
     displayControlButtons('play');
     await sp.pause();
@@ -100,8 +98,6 @@ export function registerButtonEvents(sp: Spotify, playback, render: () => void) 
     render();
   };
 }
-
-
 
 type ButtonType = 'play' | 'pause';
 type BoxType = 'player' | 'no-device-open-notification' | 'login-notification';

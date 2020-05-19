@@ -15,14 +15,7 @@ export class Spotify {
       isAnonymous: null,
     };
 
-    this.device = {
-      id: null,
-      isActive: false,
-      isRestricted: false,
-      name: null,
-      type: null,
-      volumePercent: null,
-    };
+    this.device = null;
   }
 
   public async getDevices(): Promise<Device> {
@@ -37,20 +30,20 @@ export class Spotify {
       });
 
       const data = await res.json();
-      const devices: Device[] = data.devices ?
-        data.devices
-          .filter((item) => VALID_DEVICE_TYPES.indexOf(item.type) > -1)
-          .map((item) => {
-            return {
-              id: item.id,
-              isActive: item.is_active,
-              isRestricted: item.is_restricted,
-              name: item.name,
-              type: item.type,
-              volumePercent: item.volume_percent,
-            };
-          }) :
-        [];
+      const devices: Device[] = data.devices
+        ? data.devices
+            .filter((item) => VALID_DEVICE_TYPES.indexOf(item.type) > -1)
+            .map((item) => {
+              return {
+                id: item.id,
+                isActive: item.is_active,
+                isRestricted: item.is_restricted,
+                name: item.name,
+                type: item.type,
+                volumePercent: item.volume_percent,
+              };
+            })
+        : [];
 
       if (devices.length > 0) {
         this.device = devices[0];

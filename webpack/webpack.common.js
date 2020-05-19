@@ -9,31 +9,29 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, '../dist/js'),
-    filename: '[name].js'
+    filename: '[name].js',
   },
   optimization: {
     splitChunks: {
       name: 'vendor',
-      chunks: 'initial'
-    }
+      chunks: 'initial',
+    },
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js'],
   },
   plugins: [
     new CopyPlugin({
-      patterns: [
-        { from: '.', to: '../', context: 'public' }
-      ],
-    })
-  ]
+      patterns: [{ from: '.', to: '../', context: 'public' }],
+    }),
+  ],
 };

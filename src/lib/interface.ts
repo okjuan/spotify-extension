@@ -3,7 +3,7 @@ export interface Token {
   accessToken: string;
   accessTokenExpirationTimestampMs: number;
   isAnonymous: boolean;
-};
+}
 
 /**
  * https://developer.spotify.com/documentation/web-api/reference/player/get-a-users-available-devices/
@@ -40,5 +40,5 @@ export interface PlayPostData {
   context_uri?: string;
   offset?: {
     uri: string;
-  },
+  };
 }

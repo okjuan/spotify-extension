@@ -1,7 +1,7 @@
 import { TrackInfo } from './interface';
 
 export function parse(rawData): TrackInfo {
-  if (!rawData) return;
+  if (!rawData || (rawData && !rawData.item)) return;
 
   const {
     is_playing: isPlaying,

@@ -1,17 +1,12 @@
 import { TrackInfo } from './interface';
 import { parse } from './parse';
 import { Spotify } from './spotify';
-import {
-  displayControlButtons,
-  displayBox,
-  displayTrackInfo,
-  registerButtonEvents
-} from './dom';
+import { displayControlButtons, displayBox, displayTrackInfo, registerButtonEvents } from './dom';
 import { CACHE_KEY } from './constants';
 
 export async function render() {
-  const sp = new Spotify();
   let playback: TrackInfo;
+  const sp = new Spotify();
 
   await sp.getAccessToken();
   // If user "isAnonymous" is true
@@ -24,6 +19,7 @@ export async function render() {
   // Get current devices info
   await sp.getDevices();
 
+  console.log(sp.device);
   if (sp.device) {
     displayBox('player');
 
@@ -34,7 +30,7 @@ export async function render() {
 
       // If it is a new user & the desktop app is not active
       // Get the recently played track
-      if (!track && !playingTrack) {
+      if ((!track && !playingTrack) || (track && !track.item)) {
         track = await sp.getRecentlyPlayedTrack();
       }
 
@@ -47,9 +43,7 @@ export async function render() {
         (playback && playback.title !== playingTrack.title) ||
         (playback && playback.isPlaying !== playingTrack.isPlaying) ||
         (playback && playback.uri !== playingTrack.uri) ||
-        (playback &&
-          playback.uri === playingTrack.uri &&
-          playback.progressMs !== playingTrack.progressMs)
+        (playback && playback.uri === playingTrack.uri && playback.progressMs !== playingTrack.progressMs)
       ) {
         chrome.storage.sync.set({ playingTrack: playback });
       } else {
@@ -67,11 +61,15 @@ export async function render() {
 
       if (playback) {
         // update DOM UI
-        displayTrackInfo(playback)
+        displayTrackInfo(playback);
         displayControlButtons(playback.isPlaying ? 'pause' : 'play');
       } else {
         displayControlButtons('play');
       }
+
+      // register events for player controls
+      // prev, play, next
+      registerButtonEvents(sp, playback, render);
     });
   } else {
     // Hide player control
@@ -88,6 +86,4 @@ export async function render() {
       }
     });
   }
-
-  registerButtonEvents(sp, playback, render);
 }
