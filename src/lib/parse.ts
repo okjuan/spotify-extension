@@ -18,7 +18,7 @@ export function parse(rawData): TrackInfo {
   const coverPhoto = images.length > 0 ? images[1].url : '';
 
   let context;
-  if (rawData) {
+  if (rawData.context) {
     const { type, href, external_urls, uri } = rawData.context;
     context = {
       type,
