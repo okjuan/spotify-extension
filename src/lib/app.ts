@@ -19,7 +19,6 @@ export async function render() {
   // Get current devices info
   await sp.getDevices();
 
-  console.log(sp.device);
   if (sp.device) {
     displayBox('player');
 

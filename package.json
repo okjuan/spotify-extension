@@ -20,7 +20,9 @@
     "spotify-player",
     "chrome-extension",
     "spotify-chrome-extension",
-    "darkmode"
+    "darkmode",
+    "typescript",
+    "ts"
   ],
   "author": "David Nguyen <dzungnguyen179@gmail.com> (dzungnguyen179@gmail.com)",
   "license": "ISC",
@@ -43,6 +45,7 @@
     "typescript": "^3.9.2",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-merge": "^4.2.2"
+    "webpack-merge": "^4.2.2",
+    "whatwg-fetch": "^3.0.0"
   }
 }

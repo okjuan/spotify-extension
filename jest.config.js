@@ -13,12 +13,13 @@ module.exports = {
       branches: 80,
       functions: 100,
       lines: 100,
-      statements: 100
-    }
+      statements: 100,
+    },
   },
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  verbose: true
+  verbose: true,
+  setupFiles: ['./jest.setup.js'],
 };

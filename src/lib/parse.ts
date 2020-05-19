@@ -14,8 +14,8 @@ export function parse(rawData): TrackInfo {
     },
   } = rawData;
 
-  const artist = artists.length > 0 ? artists[0].name : '';
-  const coverPhoto = images.length > 0 ? images[1].url : '';
+  const artist = artists && artists.length ? artists[0].name : '';
+  const coverPhoto = images && images.length ? images[1].url : '';
 
   let context;
   if (rawData.context) {

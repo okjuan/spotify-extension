@@ -1,4 +1,4 @@
-import { Token, PlayPostData, Device } from './interface';
+import { Token, PlayPostData, Device, TrackInfo } from './interface';
 
 const END_POINT = 'https://api.spotify.com';
 const VALID_DEVICE_TYPES = ['Computer'];
@@ -51,7 +51,7 @@ export class Spotify {
 
       return devices[0];
     } catch (e) {
-      throw e;
+      return;
     }
   }
 
@@ -69,10 +69,10 @@ export class Spotify {
 
       if (data && data.items.length) {
         const { track: item, context } = data.items[0];
-        data = { item, context };
+        return { item, context };
       }
 
-      return data;
+      return;
     } catch (e) {
       return;
     }
@@ -99,18 +99,19 @@ export class Spotify {
     const url = `${END_POINT}/v1/me/player/pause?device_id=${this.device.id}`;
 
     try {
-      await fetch(url, {
+      const result = await fetch(url, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${this.token.accessToken}`,
         },
       });
+      return result;
     } catch (e) {
       throw e;
     }
   }
 
-  public async play(songInfo) {
+  public async play(songInfo: TrackInfo) {
     const url = `${END_POINT}/v1/me/player/play?device_id=${this.device.id}`;
 
     let postData: PlayPostData = {
@@ -130,7 +131,7 @@ export class Spotify {
     }
 
     try {
-      await fetch(url, {
+      return await fetch(url, {
         method: 'PUT',
         body: JSON.stringify(postData),
         headers: {
@@ -147,7 +148,7 @@ export class Spotify {
     const url = `${END_POINT}/v1/me/player/next?device_id=${this.device.id}`;
 
     try {
-      await fetch(url, {
+      return await fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${this.token.accessToken}`,
@@ -162,7 +163,7 @@ export class Spotify {
     const url = `${END_POINT}/v1/me/player/previous?device_id=${this.device.id}`;
 
     try {
-      await fetch(url, {
+      return await fetch(url, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${this.token.accessToken}`,
@@ -173,11 +174,11 @@ export class Spotify {
     }
   }
 
-  public async shuffle(state) {
+  public async shuffle(state: boolean) {
     const url = `${END_POINT}/v1/me/player/shuffle?state=${state}&device_id=${this.device.id}`;
 
     try {
-      await fetch(url, {
+      return await fetch(url, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${this.token.accessToken}`,
@@ -188,11 +189,14 @@ export class Spotify {
     }
   }
 
-  public async repeat(state) {
+  /**
+   * https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/
+   */
+  public async repeat(state: 'track' | 'context' | 'off') {
     const url = `${END_POINT}/v1/me/player/repeat?state=${state}&device_id=${this.device.id}`;
 
     try {
-      await fetch(url, {
+      return await fetch(url, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${this.token.accessToken}`,
