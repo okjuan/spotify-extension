@@ -1,11 +1,11 @@
 {
   "name": "spotify-extension",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mini Spotify Chrome's extension",
   "main": "background.js",
   "scripts": {
     "prettier": "prettier --write ./",
-    "watch": "webpack --config webpack/webpack.dev.js --watch",
+    "dev": "webpack --config webpack/webpack.dev.js --watch",
     "build": "webpack --config webpack/webpack.prod.js",
     "clean": "rimraf dist"
   },
@@ -13,8 +13,15 @@
     "type": "git",
     "url": "git+https://github.com/davidnguyen179/spotify-extension.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "spotify",
+    "spotify-web-api",
+    "spotify-player",
+    "chrome-extension",
+    "spotify-chrome-extension",
+    "darkmode"
+  ],
+  "author": "David Nguyen <dzungnguyen179@gmail.com> (dzungnguyen179@gmail.com)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/davidnguyen179/spotify-extension/issues"
