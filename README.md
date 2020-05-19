@@ -8,6 +8,8 @@
 
 Spotify mini player Chrome's exntesion
 
+[![codecov](https://codecov.io/gh/davidnguyen179/spotify-extension/branch/master/graph/badge.svg)](https://codecov.io/gh/davidnguyen179/spotify-extension) [![Build Status](https://travis-ci.com/davidnguyen179/spotify-extension.svg?branch=master)](https://travis-ci.com/davidnguyen179/spotify-extension)
+
 ## Motivation
 
 We spend most of our time on browser for working, enjoy reading news or looking for information. We rarely want to switch to another window because we are in focus mode. Or while checking out youtube, some good melodies hit your ear and you may want to add that song to your Spotify playlist. To make things easier, this extension was born.
