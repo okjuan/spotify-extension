@@ -1,12 +1,9 @@
 chrome.runtime.onInstalled.addListener(function () {
-  // Get access token
-  handleAccessToken();
-
   // Make extension works on all pages
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
     chrome.declarativeContent.onPageChanged.addRules([
       {
-        conditions: [new chrome.declarativeContent.PageStateMatcher()],
+        conditions: [new chrome.declarativeContent.PageStateMatcher({})],
         actions: [new chrome.declarativeContent.ShowPageAction()],
       },
     ]);
