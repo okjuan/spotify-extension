@@ -1,3 +1,5 @@
+import { Spotify } from './lib/spotify';
+
 const player = document.getElementById('spotify-mini-player');
 const notification = document.getElementById(
   'spotify-mini-player-notification'
@@ -20,7 +22,9 @@ let playback;
 let tokenGlobal;
 
 function load() {
-  handleAccessToken(async function (token) {
+  const s = new Spotify();
+
+  s.getAccessToken(async function (token) {
     tokenGlobal = token;
     const { accessToken, isAnonymous } = token;
 
@@ -31,7 +35,7 @@ function load() {
       return;
     }
 
-    const s = new Spotify();
+
     const { devices } = await s.getDevices(accessToken);
 
     if (devices.length > 0) {

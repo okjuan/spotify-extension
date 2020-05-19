@@ -1,6 +1,6 @@
 const END_POINT = 'https://api.spotify.com';
 
-class Spotify {
+export class Spotify {
   async getDevices(token) {
     try {
       const url = `${END_POINT}/v1/me/player/devices`;
@@ -85,7 +85,7 @@ class Spotify {
   async play(token, deviceId, songInfo) {
     const url = `${END_POINT}/v1/me/player/play?device_id=${deviceId}`;
 
-    let postData = {
+    let postData: PlayPostData = {
       uris: [songInfo.uri],
       position_ms: songInfo.progressMs,
     };
@@ -175,14 +175,24 @@ class Spotify {
     }
   }
 
-  async getAccessToken(cookies) {
-    const url = 'https://open.spotify.com/get_access_token';
-    const res = await fetch(url, {
-      cookie: JSON.stringify(cookies),
-    });
-
-    const data = await res.json();
-
-    return data;
+  async getAccessToken(callback) {
+    if (callback) {
+      // Don't cache the token here
+      // there is no way the extension know whether or not user signs out to clear cache
+      // so the token in "cache" becomes invalid
+      const url = 'https://open.spotify.com/get_access_token';
+      const res = await fetch(url);
+      const data = await res.json();
+      callback(data);
+    }
   }
+}
+
+interface PlayPostData {
+  uris?: string[];
+  position_ms?: number;
+  context_uri?: string;
+  offset?: {
+    uri: string;
+  },
 }
