@@ -13,19 +13,6 @@ export class App {
     this.track = null;
   }
 
-  private shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo) {
-    if (
-      !prevTrack ||
-      (currentTrack && currentTrack.title !== prevTrack.title) ||
-      (currentTrack && currentTrack.isPlaying !== prevTrack.isPlaying) ||
-      (currentTrack && currentTrack.uri !== prevTrack.uri) ||
-      (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.progressMs !== prevTrack.progressMs)
-    ) {
-      return true;
-    }
-    return false;
-  }
-
   public async render() {
     // Get access token
     await this.sp.getAccessToken();
@@ -128,6 +115,19 @@ export class App {
     }
 
     return parse(track);
+  }
+
+  private shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo) {
+    if (
+      !prevTrack ||
+      (currentTrack && currentTrack.title !== prevTrack.title) ||
+      (currentTrack && currentTrack.isPlaying !== prevTrack.isPlaying) ||
+      (currentTrack && currentTrack.uri !== prevTrack.uri) ||
+      (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.progressMs !== prevTrack.progressMs)
+    ) {
+      return true;
+    }
+    return false;
   }
 
   private isDeviceOpening() {
