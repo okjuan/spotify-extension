@@ -1,3 +1,3 @@
-import { render } from './lib/app';
+import { App } from './lib/app';
 
-render();
+new App().render();

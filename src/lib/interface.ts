@@ -18,12 +18,12 @@ export interface Device {
 }
 
 export interface TrackInfo {
-  title: string;
-  artist: string;
-  isPlaying: boolean;
-  coverPhoto: string;
-  uri: string;
-  progressMs: number;
+  title?: string;
+  artist?: string;
+  isPlaying?: boolean;
+  coverPhoto?: string;
+  uri?: string;
+  progressMs?: number;
   context?: {
     type: 'artist' | 'playlist' | 'album';
     href: string;
@@ -33,6 +33,7 @@ export interface TrackInfo {
     uri: string;
   };
 }
+
 // From API
 export interface PlayPostData {
   uris?: string[];
