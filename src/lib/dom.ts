@@ -1,6 +1,5 @@
 import { TrackInfo } from './interface';
 import { Spotify } from './spotify';
-import { CACHE_KEY } from './constants';
 
 export function displayTrackInfo(playback: TrackInfo) {
   const songTitle = document.getElementById('title');
@@ -54,49 +53,66 @@ export function displayBox(mode: BoxType) {
   }
 }
 
-export function registerButtonEvents(sp: Spotify, playback, render: () => void) {
+export function registerEvents(
+  sp: Spotify,
+  playback: TrackInfo,
+  render: () => void,
+  updateTrackCache: (value: TrackInfo) => void,
+  updateTrackInfo: (key: keyof TrackInfo, value) => void
+) {
   const btnPrev = document.getElementById('prev');
   const btnPause = document.getElementById('pause');
   const btnPlay = document.getElementById('play');
   const btnNext = document.getElementById('next');
 
-  btnPause.onclick = async function () {
-    displayControlButtons('play');
-    await sp.pause();
-
-    chrome.storage.sync.get([CACHE_KEY], function (result) {
-      const { playingTrack } = result;
-      if (playingTrack) {
-        playingTrack.isPlaying = false;
-        chrome.storage.sync.set({ playingTrack });
+  document.addEventListener('keydown', async (e) => {
+    e.preventDefault();
+    if (e.code === 'Space') {
+      if (playback.isPlaying === true) {
+        await pause();
+      } else {
+        await play();
       }
-    });
+    }
+  });
+
+  btnPause.onclick = async function (e) {
+    e.preventDefault();
+    await pause();
   };
 
-  btnPlay.onclick = async function () {
-    displayControlButtons('pause');
-    await sp.play(playback);
-
-    chrome.storage.sync.get([CACHE_KEY], function (result) {
-      const { playingTrack } = result;
-      if (playingTrack) {
-        playingTrack.isPlaying = true;
-        chrome.storage.sync.set({ playingTrack });
-      }
-    });
+  btnPlay.onclick = async function (e) {
+    e.preventDefault();
+    await play();
   };
 
-  btnPrev.onclick = async function () {
+  btnPrev.onclick = async function (e) {
+    e.preventDefault();
     await sp.prev();
     // after click next song, call API again to update UI
     render();
   };
 
-  btnNext.onclick = async function () {
+  btnNext.onclick = async function (e) {
+    e.preventDefault();
     await sp.next();
     // after click next song, call API again to update UI
     render();
   };
+
+  async function pause() {
+    displayControlButtons('play');
+    await sp.pause();
+    updateTrackInfo('isPlaying', false);
+    updateTrackCache({ isPlaying: false });
+  }
+
+  async function play() {
+    displayControlButtons('pause');
+    await sp.play(playback);
+    updateTrackInfo('isPlaying', true);
+    updateTrackCache({ isPlaying: true });
+  }
 }
 
 type ButtonType = 'play' | 'pause';

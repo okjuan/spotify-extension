@@ -1,76 +1,75 @@
 import { TrackInfo } from './interface';
 import { parse } from './parse';
 import { Spotify } from './spotify';
-import { displayControlButtons, displayBox, displayTrackInfo, registerButtonEvents } from './dom';
+import { displayControlButtons, displayBox, displayTrackInfo, registerEvents } from './dom';
 import { CACHE_KEY } from './constants';
 
-export async function render() {
-  let playback: TrackInfo;
-  const sp = new Spotify();
+export class App {
+  private readonly sp: Spotify;
+  private track: TrackInfo;
 
-  await sp.getAccessToken();
-  // If user "isAnonymous" is true
-  // mean user is not login
-  if (sp.token.isAnonymous) {
-    displayBox('login-notification');
-    return;
+  constructor() {
+    this.sp = new Spotify();
+    this.track = null;
   }
 
-  // Get current devices info
-  await sp.getDevices();
+  private shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo) {
+    if (
+      !prevTrack ||
+      (currentTrack && currentTrack.title !== prevTrack.title) ||
+      (currentTrack && currentTrack.isPlaying !== prevTrack.isPlaying) ||
+      (currentTrack && currentTrack.uri !== prevTrack.uri) ||
+      (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.progressMs !== prevTrack.progressMs)
+    ) {
+      return true;
+    }
+    return false;
+  }
 
-  if (sp.device) {
+  public async render() {
+    // Get access token
+    await this.sp.getAccessToken();
+
+    // Get active device
+    await this.sp.getDevices();
+
+    if (!this.isLogin()) {
+      displayBox('login-notification');
+      return;
+    }
+
+    if (!this.isDeviceOpening()) {
+      this.displayNoDeviceBox();
+      return;
+    }
+
+    this.displayPlayerBox();
+  }
+
+  private displayPlayerBox() {
     displayBox('player');
 
-    chrome.storage.sync.get([CACHE_KEY], async function (result) {
+    chrome.storage.sync.get([CACHE_KEY], async (result) => {
       const { playingTrack } = result;
-      // call to get "playing" track
-      let track = await sp.getCurrentPlayBack();
 
-      // If it is a new user & the desktop app is not active
-      // Get the recently played track
-      if ((!track && !playingTrack) || (track && !track.item)) {
-        track = await sp.getRecentlyPlayedTrack();
-      }
+      this.track = await this.getTrack(playingTrack);
 
-      playback = parse(track);
-
-      // Update last song played
-      // In case suddently shut down Spotify app
-      if (
-        !playingTrack ||
-        (playback && playback.title !== playingTrack.title) ||
-        (playback && playback.isPlaying !== playingTrack.isPlaying) ||
-        (playback && playback.uri !== playingTrack.uri) ||
-        (playback && playback.uri === playingTrack.uri && playback.progressMs !== playingTrack.progressMs)
-      ) {
-        chrome.storage.sync.set({ playingTrack: playback });
+      if (this.shouldUpdateCache(playingTrack, this.track)) {
+        chrome.storage.sync.set({ playingTrack: this.track });
       } else {
         // if the playback is undefined
         // mean the Spotify App is not in active mode
-        if (!playback) {
-          playback = {
-            ...playingTrack,
-            isPlaying: false,
-          };
+        if (!this.track) {
+          this.track = { ...playingTrack, isPlaying: false };
         } else {
-          playback = playingTrack;
+          this.track = playingTrack;
         }
       }
-
-      if (playback) {
-        // update DOM UI
-        displayTrackInfo(playback);
-        displayControlButtons(playback.isPlaying ? 'pause' : 'play');
-      } else {
-        displayControlButtons('play');
-      }
-
-      // register events for player controls
-      // prev, play, next
-      registerButtonEvents(sp, playback, render);
+      this.handleDOM();
     });
-  } else {
+  }
+
+  private displayNoDeviceBox() {
     // Hide player control
     // Display message inform user to open Spotify Desktop App
     displayBox('no-device-open-notification');
@@ -84,5 +83,61 @@ export async function render() {
         chrome.storage.sync.set({ playingTrack });
       }
     });
+  }
+
+  private updateTrackCache(value: TrackInfo) {
+    chrome.storage.sync.get([CACHE_KEY], (result) => {
+      const { playingTrack } = result;
+      if (playingTrack) {
+        chrome.storage.sync.set({ ...playingTrack, ...value });
+      }
+    });
+  }
+
+  private updateTrackInfo = (key: keyof TrackInfo, value) => {
+    this.track[key] = value as never;
+  };
+
+  private handleDOM = () => {
+    if (this.track) {
+      // update DOM UI
+      displayTrackInfo(this.track);
+      displayControlButtons(this.track.isPlaying ? 'pause' : 'play');
+    } else {
+      displayControlButtons('play');
+    }
+
+    // register events for player controls
+    // prev, play, next
+    registerEvents(
+      this.sp,
+      this.track,
+      this.render.bind(this),
+      this.updateTrackCache.bind(this),
+      this.updateTrackInfo.bind(this)
+    );
+  };
+
+  private async getTrack(cachedTrack: TrackInfo) {
+    let track = await this.sp.getCurrentPlayBack();
+
+    // If it is a new user & the desktop app is not active
+    // Get the recently played track
+    if ((!track && !cachedTrack) || (track && !track.item)) {
+      track = await this.sp.getRecentlyPlayedTrack();
+    }
+
+    return parse(track);
+  }
+
+  private isDeviceOpening() {
+    if (this.sp.device) {
+      return true;
+    }
+    return false;
+  }
+
+  private isLogin() {
+    return !this.sp.token.isAnonymous;
   }
 }

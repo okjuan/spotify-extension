@@ -1,3 +1,4 @@
-import { render } from './lib/app';
+import { App } from './lib/app';
 
-render();
+const app = new App();
+app.render();
