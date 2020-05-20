@@ -37,12 +37,22 @@ Search song by name with Chrome's context menu
 
 ## Usage
 
-1. Download source code
-2. On the browser's URL address bar
-3. Enter [chrome://extensions/](chrome://extensions/)
-4. Switch to "**Developer mode**"
-5. Load "**Load unpacked**"
-6. Browse to `src/` in source code
-7. Done!
+**install**
+```bash
+npm i
+```
+
+**build**
+
+```bash
+npm run build
+```
+
+1. On the browser's URL address bar
+2. Enter [chrome://extensions/](chrome://extensions/)
+3. Switch to "**Developer mode**"
+4. Load "**Load unpacked**"
+5. Browse to `dist/` in source code
+5. Done!
 
 Check here for more detail: [https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
