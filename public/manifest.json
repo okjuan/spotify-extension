@@ -2,7 +2,14 @@
   "name": "Mini Spotity Player",
   "version": "1.0",
   "description": "Spotify player Chrome's extension",
-  "permissions": ["contextMenus", "declarativeContent", "storage", "http://*/*", "https://*/*"],
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "declarativeContent",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
   "manifest_version": 2,
   "background": {
     "page": "background.html",

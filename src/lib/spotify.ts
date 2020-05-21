@@ -1,4 +1,5 @@
 import { Token, PlayPostData, Device, TrackInfo } from './interface';
+import { WEB_PLAYER_URL } from './constants';
 
 const END_POINT = 'https://api.spotify.com';
 const VALID_DEVICE_TYPES = ['Computer'];
@@ -32,17 +33,17 @@ export class Spotify {
       const data = await res.json();
       const devices: Device[] = data.devices
         ? data.devices
-            .filter((item) => VALID_DEVICE_TYPES.indexOf(item.type) > -1)
-            .map((item) => {
-              return {
-                id: item.id,
-                isActive: item.is_active,
-                isRestricted: item.is_restricted,
-                name: item.name,
-                type: item.type,
-                volumePercent: item.volume_percent,
-              };
-            })
+          .filter((item) => VALID_DEVICE_TYPES.indexOf(item.type) > -1)
+          .map((item) => {
+            return {
+              id: item.id,
+              isActive: item.is_active,
+              isRestricted: item.is_restricted,
+              name: item.name,
+              type: item.type,
+              volumePercent: item.volume_percent,
+            };
+          })
         : [];
 
       if (devices.length > 0) {
@@ -211,7 +212,7 @@ export class Spotify {
     // Don't cache the token here
     // there is no way the extension know whether or not user signs out to clear cache
     // so the token in "cache" becomes invalid
-    const url = 'https://open.spotify.com/get_access_token';
+    const url = `${WEB_PLAYER_URL}/get_access_token`;
     const res = await fetch(url);
     const data: Token = await res.json();
     this.token = data;

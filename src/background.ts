@@ -1,3 +1,5 @@
+import { CONTEXT_MENU_ITEM, WEB_PLAYER_URL } from './lib/constants';
+
 chrome.runtime.onInstalled.addListener(function () {
   // Make extension works on all pages
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
@@ -11,14 +13,16 @@ chrome.runtime.onInstalled.addListener(function () {
 
   // Create right click menu
   chrome.contextMenus.create({
-    id: 'spotify-extension-search-on-spotify',
+    id: CONTEXT_MENU_ITEM,
     title: 'Search on Spotify: %s',
     contexts: ['selection'],
   });
+});
 
-  chrome.contextMenus.onClicked.addListener(function (info) {
+chrome.contextMenus.onClicked.addListener(function (info) {
+  if (info.menuItemId === CONTEXT_MENU_ITEM) {
     chrome.tabs.create({
-      url: `https://open.spotify.com/search/${info.selectionText}`,
+      url: `${WEB_PLAYER_URL}/search/${info.selectionText}`,
     });
-  });
+  }
 });
