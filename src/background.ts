@@ -14,7 +14,7 @@ chrome.runtime.onInstalled.addListener(function () {
   // Create right click menu
   chrome.contextMenus.create({
     id: CONTEXT_MENU_ITEM,
-    title: 'Search on Spotify: %s',
+    title: 'Search Spotify for "%s"',
     contexts: ['selection'],
   });
 });

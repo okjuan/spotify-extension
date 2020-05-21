@@ -33,11 +33,12 @@ We spend most of our time on browser for working, enjoy reading news or looking 
 
 Search song by name with Chrome's context menu
 
-<img width="570" alt="Screen Shot 2020-05-17 at 23 57 13" src="https://user-images.githubusercontent.com/6290720/82152275-fd489780-989a-11ea-9334-5aed74a49967.png">
+<img width="487" alt="Screen Shot 2020-05-21 at 23 45 34" src="https://user-images.githubusercontent.com/6290720/82570946-3cd5f300-9bbd-11ea-98d0-c15dda420c2b.png">
 
 ## Usage
 
 **install**
+
 ```bash
 npm i
 ```
@@ -53,6 +54,6 @@ npm run build
 3. Switch to "**Developer mode**"
 4. Load "**Load unpacked**"
 5. Browse to `dist/` in source code
-5. Done!
+6. Done!
 
 Check here for more detail: [https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
