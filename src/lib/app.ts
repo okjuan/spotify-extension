@@ -81,8 +81,8 @@ export class App {
     });
   }
 
-  private updateTrackInfo = (key: keyof TrackInfo, value) => {
-    this.track[key] = value as never;
+  private updateTrackInfo = <K1 extends keyof TrackInfo>(key: K1, value: TrackInfo[K1]) => {
+    this.track[key] = value;
   };
 
   private handleDOM = () => {
