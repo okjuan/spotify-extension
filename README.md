@@ -39,16 +39,6 @@ Search song by name with Chrome's context menu
 
 **install**
 
-```bash
-npm i
-```
-
-**build**
-
-```bash
-npm run build
-```
-
 1. On the browser's URL address bar
 2. Enter [chrome://extensions/](chrome://extensions/)
 3. Switch to "**Developer mode**"
