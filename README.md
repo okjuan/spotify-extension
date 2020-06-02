@@ -41,7 +41,15 @@ Search song by name with Chrome's context menu
 
 ## Development
 
-**install**
+```bash
+npm i
+```
+
+```bash
+npm run dev
+```
+
+## Production
 
 ```bash
 npm i
@@ -51,7 +59,7 @@ npm i
 npm run build
 ```
 
-**load package to Chrome**
+## Load package to Chrome
 
 1. On the browser's URL address bar
 2. Enter [chrome://extensions/](chrome://extensions/)
@@ -61,3 +69,4 @@ npm run build
 6. Done!
 
 Check here for more detail: [https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
+
