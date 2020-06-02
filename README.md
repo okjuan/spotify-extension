@@ -35,9 +35,23 @@ Search song by name with Chrome's context menu
 
 <img width="487" alt="Screen Shot 2020-05-21 at 23 45 34" src="https://user-images.githubusercontent.com/6290720/82570946-3cd5f300-9bbd-11ea-98d0-c15dda420c2b.png">
 
-## Usage
+## Chrome's store
+
+[https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa](https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa)
+
+## Development
 
 **install**
+
+```bash
+npm i
+```
+
+```bash
+npm run build
+```
+
+**load package to Chrome**
 
 1. On the browser's URL address bar
 2. Enter [chrome://extensions/](chrome://extensions/)
