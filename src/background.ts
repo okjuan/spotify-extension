@@ -1,7 +1,7 @@
 import { CONTEXT_MENU_ITEM, WEB_PLAYER_URL } from './lib/constants';
 
 chrome.runtime.onInstalled.addListener(function () {
-  // Make extension works on all pages
+  // Make extension work on all pages
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
     chrome.declarativeContent.onPageChanged.addRules([
       {

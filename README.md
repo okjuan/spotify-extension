@@ -12,9 +12,9 @@ Spotify mini player Chrome's exntesion
 
 ## Motivation
 
-We spend most of our time on browser for working, enjoy reading news or looking for information. We rarely want to switch to another window because we are in focus mode. Or while checking out youtube, some good melodies hit your ear and you may want to add that song to your Spotify playlist. To make things easier, this extension was born.
+When we are working or just browsing it is inconvenient to have to switch to another window to play/pause or jump to previous tracks or forward to upcoming tracks. Also, we lose focus or get distracted once we navigate away from our current window and open Spotify. With this simple extension we can eliminate the need to navigate away from your current window to control Spotify. This extension has another nifty feature. With a quick right click on the widget, you can search a song by name. So for example if you hear a tune on Youtube you can quickly search it on Spotify without navigating away from your current window. Then you can maybe add it to a playlist later.
 
-- Avoid switching context while you're focusing on your browser by providing mini player which helps to control Spotify easier on the browser.
+- Avoid switching context while you're focusing on your browser by providing mini player which helps to control Spotify with ease from your browser.
 - Quick right click to search song by name on Spotify site.
 
 ## How it looks like?
@@ -35,7 +35,7 @@ Search song by name with Chrome's context menu
 
 <img width="487" alt="Screen Shot 2020-05-21 at 23 45 34" src="https://user-images.githubusercontent.com/6290720/82570946-3cd5f300-9bbd-11ea-98d0-c15dda420c2b.png">
 
-## Chrome's store
+## Chrome store
 
 [https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa](https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa)
 
@@ -69,4 +69,3 @@ npm run build
 6. Done!
 
 Check here for more detail: [https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
-
