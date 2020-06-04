@@ -4,7 +4,7 @@
   "description": "Mini Spotify Chrome's extension",
   "main": "background.js",
   "scripts": {
-    "prettier": "prettier --write ./",
+    "prettier": "prettier --write '**/**/*.{ts,tsx}'",
     "dev": "webpack --config webpack/webpack.dev.js --watch",
     "build": "webpack --config webpack/webpack.prod.js",
     "test": "jest",
