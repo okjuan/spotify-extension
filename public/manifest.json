@@ -2,7 +2,13 @@
   "name": "Spotify Player",
   "version": "1.1",
   "description": "Spotify Player Chrome's extension",
-  "permissions": ["contextMenus", "tabs", "declarativeContent", "storage", "http://*/*", "https://*/*"],
+  "permissions": [
+    "contextMenus",
+    "declarativeContent",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
   "manifest_version": 2,
   "background": {
     "page": "background.html",
@@ -11,10 +17,14 @@
   "page_action": {
     "default_popup": "popup.html",
     "default_icon": {
+      "16": "images/spotify-mini-player-16.png",
+      "48": "images/spotify-mini-player-48.png",
       "128": "images/spotify-mini-player-128.png"
     }
   },
   "icons": {
+    "16": "images/spotify-mini-player-16.png",
+    "48": "images/spotify-mini-player-48.png",
     "128": "images/spotify-mini-player-128.png"
   }
 }
