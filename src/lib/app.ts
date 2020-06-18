@@ -52,7 +52,11 @@ export class App {
           this.track = playingTrack;
         }
       }
+
       this.handleDOM();
+
+      // detect when new song information are fetched and render UI again
+      this.startTimer();
     });
   }
 
@@ -139,5 +143,17 @@ export class App {
 
   private isLogin() {
     return !this.sp.token.isAnonymous;
+  }
+
+  /*
+   * When the player box still opens and the song is ended
+   * It will automatically call API to get new song information
+   * and render UI with new song information
+   */
+  private startTimer() {
+    const timer = setInterval(() => {
+      this.displayPlayerBox();
+      clearInterval(timer);
+    }, this.track.durationMs - this.track.progressMs);
   }
 }
