@@ -8,9 +8,21 @@ export function displayTrackInfo(playback: TrackInfo) {
 
   const { title, artist, coverPhoto } = playback;
   // update DOM UI
-  title && (songTitle.textContent = title);
-  artist && (artistName.textContent = artist);
-  coverPhoto && (coverImage.style.backgroundImage = `url('${coverPhoto}')`);
+  if (title) {
+    songTitle.textContent = title;
+    songTitle.setAttribute('title', title);
+  }
+
+  if (artist) {
+    artistName.textContent = artist
+    artistName.setAttribute('title', artist);
+  }
+
+  if (coverPhoto) {
+    coverImage.style.backgroundImage = `url('${coverPhoto}')`
+    coverImage.setAttribute('title', `${title} - ${artist}`);
+    coverImage.setAttribute('alt', `${title} - ${artist}`);
+  }
 }
 
 export function displayControlButtons(mode: ButtonType) {
