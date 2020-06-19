@@ -24,6 +24,7 @@ export interface TrackInfo {
   coverPhoto?: string;
   uri?: string;
   progressMs?: number;
+  durationMs?: number;
   context?: {
     type: 'artist' | 'playlist' | 'album';
     href: string;

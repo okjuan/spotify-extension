@@ -11,6 +11,7 @@ export function parse(rawData): TrackInfo {
       artists,
       album: { images },
       uri,
+      duration_ms: durationMs,
     },
   } = rawData;
 
@@ -36,5 +37,6 @@ export function parse(rawData): TrackInfo {
     uri,
     progressMs,
     context,
+    durationMs,
   };
 }
