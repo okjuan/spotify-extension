@@ -20,6 +20,7 @@ describe('testing parse', () => {
       coverPhoto: 'https://i.scdn.co/image/ab67616d00001e0230da6905883b7cc2441d7abe',
       uri: 'spotify:track:4JRSFd7IbVbEN3BAJVJFJf',
       progressMs: 9488,
+      durationMs: 208440,
       context: {
         type: 'playlist',
         href: 'https://api.spotify.com/v1/playlists/5d5HXxz6RG9fzqXbhwbqJT',
@@ -38,6 +39,7 @@ describe('testing parse', () => {
       coverPhoto: 'https://i.scdn.co/image/ab67616d00001e0230da6905883b7cc2441d7abe',
       uri: 'spotify:track:4JRSFd7IbVbEN3BAJVJFJf',
       progressMs: 9488,
+      durationMs: 208440,
       context: undefined,
     });
   });
@@ -62,6 +64,7 @@ describe('testing parse', () => {
       coverPhoto: '',
       uri: 'spotify:track:4JRSFd7IbVbEN3BAJVJFJf',
       progressMs: 9488,
+      durationMs: 208440,
       context: {
         type: 'playlist',
         href: 'https://api.spotify.com/v1/playlists/5d5HXxz6RG9fzqXbhwbqJT',
