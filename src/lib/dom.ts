@@ -1,10 +1,18 @@
 import { TrackInfo } from './interface';
 import { Spotify } from './spotify';
+import ColorThief from 'colorthief';
+
+const LIMIT = 128;
 
 export function displayTrackInfo(playback: TrackInfo) {
   const songTitle = document.getElementById('title');
   const artistName = document.getElementById('artist');
-  const coverImage = document.getElementById('cover-photo');
+  const coverImage = document.getElementById('cover-photo-wrapper');
+  const infoBox = document.getElementById('information-box');
+  const prevIcon = document.getElementById('prevIcon');
+  const playIcon = document.getElementById('playIcon');
+  const pauseIcon = document.getElementById('pauseIcon');
+  const nextIcon = document.getElementById('nextIcon');
 
   const { title, artist, coverPhoto } = playback;
   // update DOM UI
@@ -19,10 +27,96 @@ export function displayTrackInfo(playback: TrackInfo) {
   }
 
   if (coverPhoto) {
-    coverImage.style.backgroundImage = `url('${coverPhoto}')`
-    coverImage.setAttribute('title', `${title} - ${artist}`);
-    coverImage.setAttribute('alt', `${title} - ${artist}`);
+    const img = document.createElement('img');
+    img.setAttribute('src', coverPhoto);
+    img.setAttribute('id', 'cover-photo');
+    img.setAttribute('class', 'mini-spotify-right-panel');
+    img.setAttribute('title', `${title} - ${artist}`);
+    img.setAttribute('alt', `${title} - ${artist}`);
+
+    if (document.getElementById('cover-photo')) {
+      coverImage.removeChild(document.getElementById('cover-photo'));
+    }
+
+    coverImage.append(img);
+
+    if (img.complete) {
+      const { background, text } = getColors();
+      const textRGB = `rgb(${text[0]}, ${text[1]}, ${text[2]})`;
+      const bgRGB = `rgb(${background[0]}, ${background[1]}, ${background[2]})`;
+
+      songTitle.style.color = textRGB;
+      artistName.style.color = textRGB;
+      prevIcon.style.fill = textRGB;
+      playIcon.style.fill = textRGB;
+      pauseIcon.style.fill = textRGB;
+      nextIcon.style.fill = textRGB;
+      infoBox.style.backgroundColor = bgRGB;
+    } else {
+      img.addEventListener('load', function () {
+        const { background, text } = getColors();
+        const textRGB = `rgb(${text[0]}, ${text[1]}, ${text[2]})`;
+        const bgRGB = `rgb(${background[0]}, ${background[1]}, ${background[2]})`;
+
+        songTitle.style.color = textRGB;
+        artistName.style.color = textRGB;
+        prevIcon.style.fill = textRGB;
+        playIcon.style.fill = textRGB;
+        pauseIcon.style.fill = textRGB;
+        nextIcon.style.fill = textRGB;
+        infoBox.style.backgroundColor = bgRGB;
+      });
+    }
   }
+}
+
+function getColors() {
+  const img = document.getElementById('cover-photo');
+  const colorThief = new ColorThief();
+  const palette = colorThief.getPalette(img);
+  const mainColor = palette[0];
+
+  const mode = getModeOfColor(mainColor[0], mainColor[1], mainColor[2]);
+
+  const darkColorsIndex = [];
+  const lightColorsIndex = [];
+
+  for (let i = 1; i < palette.length; i++) {
+    const [red, green, blue] = palette[i];
+    if (getMeanColors(red, green, blue) > LIMIT) {
+      lightColorsIndex.push(i);
+    } else {
+      darkColorsIndex.push(i);
+    }
+  }
+
+  let textColor;
+
+  switch (mode) {
+    case 'dark':
+      textColor = palette[lightColorsIndex[0]];
+      break;
+    case 'light':
+      textColor = palette[darkColorsIndex[0]];
+      break;
+  }
+
+  return {
+    background: mainColor,
+    text: textColor,
+  };
+}
+
+function getModeOfColor(red, green, blue): 'dark' | 'light' {
+  const mean = getMeanColors(red, green, blue);
+  if (mean < LIMIT) {
+    return 'dark';
+  }
+  return 'light';
+}
+
+function getMeanColors(red, green, blue) {
+  return (red + green + blue) / 3;
 }
 
 export function displayControlButtons(mode: ButtonType) {

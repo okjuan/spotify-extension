@@ -3,11 +3,16 @@
 
 <head>
   <style>
+    :root {
+      --min-height: 168px;
+      --width: 390px;
+    }
+
     .mini-spotify-player-body {
       margin: 0;
       background: transparent;
-      width: 390px;
-      min-height: 148px;
+      width: var(--width);
+      min-height: var(--min-height);
     }
 
     .mini-spotify-player-link {
@@ -17,8 +22,8 @@
 
     .mini-spotify-player-wrapper {
       display: none;
-      width: 390px;
-      min-height: 148px;
+      width: var(--width);
+      min-height: var(--min-height);
       color: rgba(0, 0, 0, 0.54);
       background-color: #f4f4f4;
       transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
@@ -102,10 +107,7 @@
     }
 
     .mini-spotify-right-panel {
-      display: block;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+      display: flex;
       width: 100%;
     }
 
@@ -139,7 +141,7 @@
 
 <body class="mini-spotify-player-body">
   <div id="spotify-mini-player" class="mini-spotify-player-wrapper">
-    <div class="mini-spotify-left-panel">
+    <div id="information-box" class="mini-spotify-left-panel">
       <div class="mini-spotify-left-panel-info">
         <h5 id="title" class="mini-spotify-left-panel-info-heading"></h5>
         <h6 id="artist" class="mini-spotify-left-panel-info-sub-heading"></h6>
@@ -147,24 +149,33 @@
 
       <div class="mini-spotify-left-panel-control">
         <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="prev">
-          <img src="./icons/previous.svg" />
+          <svg id="prevIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
         </button>
 
         <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="pause">
-          <img src="./icons/pause.svg" />
+          <svg id="pauseIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
         </button>
 
         <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="play">
-          <img src="./icons/play.svg" />
+          <svg id="playIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M8 5v14l11-7z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
         </button>
 
         <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="next">
-          <img src="./icons/next.svg" />
+          <svg id="nextIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+            <path d="M0 0h24v24H0z" fill="none" /></svg>
         </button>
       </div>
     </div>
 
-    <div id="cover-photo" class="mini-spotify-right-panel"></div>
+    <div id="cover-photo-wrapper" class="mini-spotify-right-panel"></div>
   </div>
 
   <div id="spotify-mini-player-notification" class="mini-spotify-player-wrapper mini-spotify-player-notification">
