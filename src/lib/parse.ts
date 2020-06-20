@@ -12,10 +12,18 @@ export function parse(rawData): TrackInfo {
       album: { images },
       uri,
       duration_ms: durationMs,
+      external_urls: { spotify: trackUrl },
     },
   } = rawData;
 
-  const artist = artists && artists.length ? artists[0].name : '';
+  let artistName = '';
+  let artistUrl = '';
+
+  if (artists && artists.length) {
+    artistName = artists[0].name;
+    artistUrl = artists[0].external_urls.spotify;
+  }
+
   const coverPhoto = images && images.length ? images[1].url : '';
 
   let context;
@@ -31,12 +39,16 @@ export function parse(rawData): TrackInfo {
 
   return {
     title,
-    artist,
+    artist: {
+      name: artistName,
+      url: artistUrl,
+    },
     isPlaying,
     coverPhoto,
     uri,
     progressMs,
     context,
     durationMs,
+    trackUrl,
   };
 }
