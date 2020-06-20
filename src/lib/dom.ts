@@ -3,6 +3,7 @@ import { Spotify } from './spotify';
 import ColorThief from 'colorthief';
 
 const LIMIT = 128;
+const BOX_SHADOW = '10px 0px 20px 15px';
 
 export function displayTrackInfo(playback: TrackInfo) {
   const songTitle = document.getElementById('title');
@@ -56,6 +57,7 @@ export function displayTrackInfo(playback: TrackInfo) {
       pauseIcon.style.fill = textRGB;
       nextIcon.style.fill = textRGB;
       infoBox.style.backgroundColor = bgRGB;
+      infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
     } else {
       img.addEventListener('load', function () {
         const { background, text } = getColors();
@@ -69,6 +71,7 @@ export function displayTrackInfo(playback: TrackInfo) {
         pauseIcon.style.fill = textRGB;
         nextIcon.style.fill = textRGB;
         infoBox.style.backgroundColor = bgRGB;
+        infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
       });
     }
   }
