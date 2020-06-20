@@ -19,15 +19,35 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 ## How it looks like?
 
-![spotify-mini-player-light-dark](https://user-images.githubusercontent.com/6290720/82152282-0afe1d00-989b-11ea-8266-4f4a8c71c11f.gif)
+![spotify-extension](https://user-images.githubusercontent.com/6290720/85205217-e17e5880-b354-11ea-8b25-bf3f02dfbb71.gif)
 
-### Dark mode
+### Main screens
 
-<img width="401" alt="Screen Shot 2020-05-17 at 23 41 57" src="https://user-images.githubusercontent.com/6290720/82152215-ba86bf80-989a-11ea-820b-b87053ad09d8.png">
+<img width="400" alt="Screen Shot 2020-06-21 at 0 20 46" src="https://user-images.githubusercontent.com/6290720/85205249-1d192280-b355-11ea-9c29-f28f9bb6bcbf.png">
 
-### Light mode
+<img width="402" alt="Screen Shot 2020-06-21 at 0 20 57" src="https://user-images.githubusercontent.com/6290720/85205252-2b673e80-b355-11ea-97fd-1ccb1cbdcd3a.png">
 
-<img width="408" alt="Screen Shot 2020-05-17 at 23 41 46" src="https://user-images.githubusercontent.com/6290720/82152226-ca9e9f00-989a-11ea-8d1c-63d1ad05d274.png">
+<img width="403" alt="Screen Shot 2020-06-21 at 0 21 05" src="https://user-images.githubusercontent.com/6290720/85205254-2e622f00-b355-11ea-8725-1860338c911b.png">
+
+### Login screen
+
+**dark**
+
+<img width="403" alt="Screen Shot 2020-06-21 at 0 26 10" src="https://user-images.githubusercontent.com/6290720/85205356-e8f23180-b355-11ea-8892-e01e9752d70e.png">
+
+**light**
+
+<img width="406" alt="Screen Shot 2020-06-21 at 0 26 01" src="https://user-images.githubusercontent.com/6290720/85205358-eabbf500-b355-11ea-8f61-af17c8e8a28f.png">
+
+### No device is opened
+
+**dark**
+
+<img width="403" alt="Screen Shot 2020-06-21 at 0 25 21" src="https://user-images.githubusercontent.com/6290720/85205342-d4159e00-b355-11ea-8e02-c19b4afa4bf8.png">
+
+**light**
+
+<img width="410" alt="Screen Shot 2020-06-21 at 0 25 39" src="https://user-images.githubusercontent.com/6290720/85205345-d546cb00-b355-11ea-9d2c-692b1a9e5614.png">
 
 ### Context menu
 
