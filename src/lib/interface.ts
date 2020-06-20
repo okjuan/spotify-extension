@@ -19,12 +19,13 @@ export interface Device {
 
 export interface TrackInfo {
   title?: string;
-  artist?: string;
+  artist?: Artist;
   isPlaying?: boolean;
   coverPhoto?: string;
   uri?: string;
   progressMs?: number;
   durationMs?: number;
+  trackUrl?: string;
   context?: {
     type: 'artist' | 'playlist' | 'album';
     href: string;
@@ -33,6 +34,11 @@ export interface TrackInfo {
     };
     uri: string;
   };
+}
+
+export interface Artist {
+  name?: string;
+  url?: string;
 }
 
 // From API

@@ -14,16 +14,20 @@ export function displayTrackInfo(playback: TrackInfo) {
   const pauseIcon = document.getElementById('pauseIcon');
   const nextIcon = document.getElementById('nextIcon');
 
-  const { title, artist, coverPhoto } = playback;
-  // update DOM UI
+  const { title, artist, coverPhoto, trackUrl } = playback;
+
   if (title) {
     songTitle.textContent = title;
     songTitle.setAttribute('title', title);
+    songTitle.setAttribute('href', trackUrl);
+    songTitle.setAttribute('target', '_blank');
   }
 
   if (artist) {
-    artistName.textContent = artist
-    artistName.setAttribute('title', artist);
+    artistName.textContent = artist.name;
+    artistName.setAttribute('title', artist.name);
+    artistName.setAttribute('href', artist.url);
+    artistName.setAttribute('target', '_blank');
   }
 
   if (coverPhoto) {
@@ -81,6 +85,8 @@ function getColors() {
   const darkColorsIndex = [];
   const lightColorsIndex = [];
 
+  // start with the second palette
+  // because the first one is the main palette
   for (let i = 1; i < palette.length; i++) {
     const [red, green, blue] = palette[i];
     if (getMeanColors(red, green, blue) > LIMIT) {
@@ -102,17 +108,14 @@ function getColors() {
   }
 
   return {
-    background: mainColor,
     text: textColor,
+    background: mainColor,
   };
 }
 
 function getModeOfColor(red, green, blue): 'dark' | 'light' {
   const mean = getMeanColors(red, green, blue);
-  if (mean < LIMIT) {
-    return 'dark';
-  }
-  return 'light';
+  return mean < LIMIT ? 'dark' : 'light';
 }
 
 function getMeanColors(red, green, blue) {
@@ -125,12 +128,12 @@ export function displayControlButtons(mode: ButtonType) {
 
   switch (mode) {
     case 'play':
-      btnPlay.style.display = 'block';
+      btnPlay.style.display = 'inline-flex';
       btnPause.style.display = 'none';
       break;
     case 'pause':
       btnPlay.style.display = 'none';
-      btnPause.style.display = 'block';
+      btnPause.style.display = 'inline-flex';
       break;
   }
 }
