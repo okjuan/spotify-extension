@@ -4,6 +4,8 @@ import ColorThief from 'colorthief';
 
 const LIMIT = 128;
 const BOX_SHADOW = '10px 0px 20px 15px';
+const DEFAULT_DARK_PALETTE = [31, 64, 104];
+const DEFAULT_LIGHT_PALETTE = [244, 244, 244];
 
 export function displayTrackInfo(playback: TrackInfo) {
   const songTitle = document.getElementById('title');
@@ -103,10 +105,10 @@ function getColors() {
 
   switch (mode) {
     case 'dark':
-      textColor = palette[lightColorsIndex[0]];
+      textColor = palette[lightColorsIndex[0]] || DEFAULT_LIGHT_PALETTE;
       break;
     case 'light':
-      textColor = palette[darkColorsIndex[0]];
+      textColor = palette[darkColorsIndex[0]] || DEFAULT_DARK_PALETTE;
       break;
   }
 
