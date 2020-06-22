@@ -8,7 +8,7 @@ import {
   prev,
   next,
   repeat,
-  shuffle
+  shuffle,
 } from '../lib/spotify';
 import { parse } from '../lib/parse';
 import { playback } from './fixtures/playback';

@@ -16,17 +16,17 @@ export async function getDevices(accessToken: string) {
 
     const devices: Device[] = data.devices
       ? data.devices
-        .filter((item) => VALID_DEVICE_TYPES.indexOf(item.type) > -1)
-        .map((item) => {
-          return {
-            id: item.id,
-            isActive: item.is_active,
-            isRestricted: item.is_restricted,
-            name: item.name,
-            type: item.type,
-            volumePercent: item.volume_percent,
-          };
-        })
+          .filter((item) => VALID_DEVICE_TYPES.indexOf(item.type) > -1)
+          .map((item) => {
+            return {
+              id: item.id,
+              isActive: item.is_active,
+              isRestricted: item.is_restricted,
+              name: item.name,
+              type: item.type,
+              volumePercent: item.volume_percent,
+            };
+          })
       : [];
 
     return devices[0];
@@ -50,7 +50,7 @@ export async function getAccessToken() {
     const url = `${WEB_PLAYER_URL}/get_access_token`;
     const res = await fetch(url);
     token = await res.json();
-  } catch { }
+  } catch {}
 
   return token;
 }

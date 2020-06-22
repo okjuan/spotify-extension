@@ -1,4 +1,4 @@
-import { TrackInfo } from "./interface";
+import { TrackInfo } from './interface';
 
 export function shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo) {
   if (

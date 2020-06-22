@@ -1,11 +1,6 @@
 import { TrackInfo, Token, Device } from './interface';
 import { parse } from './parse';
-import {
-  getDevices,
-  getAccessToken,
-  getCurrentPlayBack,
-  getRecentlyPlayedTrack
-} from './spotify';
+import { getDevices, getAccessToken, getCurrentPlayBack, getRecentlyPlayedTrack } from './spotify';
 import { displayControlButtons, displayBox, displayTrackInfo, registerEvents } from './dom';
 import { CACHE_KEY } from './constants';
 import { shouldUpdateCache } from './utils';

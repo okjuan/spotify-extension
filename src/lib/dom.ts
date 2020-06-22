@@ -1,10 +1,5 @@
 import { TrackInfo, Token, Device } from './interface';
-import {
-  pause as pauseTrack,
-  next as nextTrack,
-  prev as prevTrack,
-  play as playTrack,
-} from './spotify';
+import { pause as pauseTrack, next as nextTrack, prev as prevTrack, play as playTrack } from './spotify';
 import ColorThief from 'colorthief';
 
 const LIMIT = 128;
