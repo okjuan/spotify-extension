@@ -1,5 +1,10 @@
-import { TrackInfo } from './interface';
-import { Spotify } from './spotify';
+import { TrackInfo, Token, Device } from './interface';
+import {
+  pause as pauseTrack,
+  next as nextTrack,
+  prev as prevTrack,
+  play as playTrack,
+} from './spotify';
 import ColorThief from 'colorthief';
 
 const LIMIT = 128;
@@ -168,7 +173,8 @@ export function displayBox(mode: BoxType) {
 }
 
 export function registerEvents(
-  sp: Spotify,
+  token: Token,
+  device: Device,
   playback: TrackInfo,
   render: () => void,
   updateTrackCache: (value: TrackInfo) => void,
@@ -202,28 +208,28 @@ export function registerEvents(
 
   btnPrev.onclick = async function (e) {
     e.preventDefault();
-    await sp.prev();
+    await prevTrack(device.id, token.accessToken);
     // after click next song, call API again to update UI
     render();
   };
 
   btnNext.onclick = async function (e) {
     e.preventDefault();
-    await sp.next();
+    await nextTrack(device.id, token.accessToken);
     // after click next song, call API again to update UI
     render();
   };
 
   async function pause() {
     displayControlButtons('play');
-    await sp.pause();
+    await pauseTrack(device.id, token.accessToken);
     updateTrackInfo('isPlaying', false);
     updateTrackCache({ isPlaying: false });
   }
 
   async function play() {
     displayControlButtons('pause');
-    await sp.play(playback);
+    await playTrack(playback, device.id, token.accessToken);
     updateTrackInfo('isPlaying', true);
     updateTrackCache({ isPlaying: true });
   }
