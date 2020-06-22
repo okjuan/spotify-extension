@@ -1,10 +1,22 @@
-import { Spotify } from '../lib/spotify';
+import {
+  getDevices,
+  getCurrentPlayBack,
+  getAccessToken,
+  getRecentlyPlayedTrack,
+  pause,
+  play,
+  prev,
+  next,
+  repeat,
+  shuffle
+} from '../lib/spotify';
 import { parse } from '../lib/parse';
 import { playback } from './fixtures/playback';
 import { devices } from './fixtures/devices';
 import { token } from './fixtures/token';
 import { rawData } from './fixtures/response';
 import { recentlyPlayedTrack } from './fixtures/recently-played';
+import { Token, Device } from '../lib/interface';
 
 function mockFetchResolve(data?) {
   return jest.fn().mockImplementation(() =>
@@ -20,41 +32,42 @@ function mockFetchReject() {
 }
 
 describe('testing Spotify class', () => {
-  let sp: Spotify;
+  const token: Token = {
+    clientId: '0971d',
+    accessToken: 'fake token',
+    accessTokenExpirationTimestampMs: 1589898018127,
+    isAnonymous: false,
+  };
+
+  const device: Device = {
+    id: '5fbb3ba6aa454b5534c4ba43a8c7e8e45a63ad0e',
+    isActive: false,
+    isRestricted: false,
+    name: 'Web Player (Chrome)',
+    type: 'Computer',
+    volumePercent: '100',
+  };
   const originalFetch = window.fetch;
 
-  beforeEach(() => {
-    sp = new Spotify();
-    sp.device = {
-      id: '5fbb3ba6aa454b5534c4ba43a8c7e8e45a63ad0e',
-      isActive: false,
-      isRestricted: false,
-      name: 'Web Player (Chrome)',
-      type: 'Computer',
-      volumePercent: '100',
-    };
-  });
-
   afterEach(() => {
-    sp = null;
     window.fetch = originalFetch;
   });
 
   it('should return data of getCurrentPlayBack', async () => {
     window.fetch = mockFetchResolve(playback);
-    const data = await sp.getCurrentPlayBack();
+    const data = await getCurrentPlayBack(token.accessToken);
     expect(data).toBeDefined();
   });
 
   it('should return undefined of getCurrentPlayBack', async () => {
     window.fetch = mockFetchReject();
-    const data = await sp.getCurrentPlayBack();
+    const data = await getCurrentPlayBack(token.accessToken);
     expect(data).toBeUndefined();
   });
 
   it('should return data of getDevices', async () => {
     window.fetch = mockFetchResolve(devices);
-    const data = await sp.getDevices();
+    const data = await getDevices(token.accessToken);
     expect(data).toEqual({
       id: '5fbb3ba6aa454b5534c4ba43a8c7e8e45a63ad0e',
       isActive: false,
@@ -67,44 +80,44 @@ describe('testing Spotify class', () => {
 
   it('should return undefined of getDevices - reponse is empty', async () => {
     window.fetch = mockFetchResolve([]);
-    const data = await sp.getDevices();
+    const data = await getDevices(token.accessToken);
     expect(data).toBeUndefined();
   });
 
   it('should return undefined of getDevices', async () => {
     window.fetch = mockFetchReject();
-    const data = await sp.getDevices();
+    const data = await getDevices(token.accessToken);
     expect(data).toBeUndefined();
   });
 
   it('should return data of getRecentlyPlayedTrack', async () => {
     window.fetch = mockFetchResolve(recentlyPlayedTrack);
-    const result = await sp.getRecentlyPlayedTrack();
+    const result = await getRecentlyPlayedTrack(token.accessToken);
     expect(result).toBeDefined();
   });
 
   it('should return undefined of getRecentlyPlayedTrack - response is empty', async () => {
     window.fetch = mockFetchResolve({ items: [] });
-    const result = await sp.getRecentlyPlayedTrack();
+    const result = await getRecentlyPlayedTrack(token.accessToken);
     expect(result).toBeUndefined();
   });
 
   it('should return undefined of getRecentlyPlayedTrack', async () => {
     window.fetch = mockFetchReject();
-    const data = await sp.getRecentlyPlayedTrack();
+    const data = await getRecentlyPlayedTrack(token.accessToken);
     expect(data).toBeUndefined();
   });
 
   it('should run pause', async () => {
     window.fetch = mockFetchResolve();
-    const { ok } = await sp.pause();
+    const { ok } = await pause(device.id, token.accessToken);
     expect(ok).toBeTruthy();
   });
 
   it('should not run pause', async () => {
     window.fetch = mockFetchReject();
     try {
-      await sp.pause();
+      await pause(device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
@@ -112,14 +125,14 @@ describe('testing Spotify class', () => {
 
   it('should run next', async () => {
     window.fetch = mockFetchResolve();
-    const { ok } = await sp.next();
+    const { ok } = await next(device.id, token.accessToken);
     expect(ok).toBeTruthy();
   });
 
   it('should not run next', async () => {
     window.fetch = mockFetchReject();
     try {
-      await sp.next();
+      await next(device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
@@ -127,14 +140,14 @@ describe('testing Spotify class', () => {
 
   it('should run prev', async () => {
     window.fetch = mockFetchResolve();
-    const { ok } = await sp.prev();
+    const { ok } = await prev(device.id, token.accessToken);
     expect(ok).toBeTruthy();
   });
 
   it('should not run prev', async () => {
     window.fetch = mockFetchReject();
     try {
-      await sp.prev();
+      await prev(device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
@@ -142,14 +155,14 @@ describe('testing Spotify class', () => {
 
   it('should run shuffle', async () => {
     window.fetch = mockFetchResolve();
-    const { ok } = await sp.shuffle(true);
+    const { ok } = await shuffle(true, device.id, token.accessToken);
     expect(ok).toBeTruthy();
   });
 
   it('should not run shuffle', async () => {
     window.fetch = mockFetchReject();
     try {
-      await sp.shuffle(true);
+      await shuffle(true, device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
@@ -157,14 +170,14 @@ describe('testing Spotify class', () => {
 
   it('should run repeat', async () => {
     window.fetch = mockFetchResolve();
-    const { ok } = await sp.repeat('track');
+    const { ok } = await repeat('track', device.id, token.accessToken);
     expect(ok).toBeTruthy();
   });
 
   it('should not run repeat', async () => {
     window.fetch = mockFetchReject();
     try {
-      await sp.repeat('track');
+      await repeat('track', device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
@@ -172,7 +185,7 @@ describe('testing Spotify class', () => {
 
   it('should get token', async () => {
     window.fetch = mockFetchResolve(token);
-    const result = await sp.getAccessToken();
+    const result = await getAccessToken();
     expect(result).toEqual({
       clientId: '0971d',
       accessToken: 'fake token',
@@ -184,7 +197,7 @@ describe('testing Spotify class', () => {
   it('should run play', async () => {
     window.fetch = mockFetchResolve();
     const songInfo = parse(rawData);
-    const result = await sp.play(songInfo);
+    const result = await play(songInfo, device.id, token.accessToken);
     expect(result.ok).toBeTruthy();
   });
 
@@ -192,7 +205,7 @@ describe('testing Spotify class', () => {
     window.fetch = mockFetchReject();
     try {
       const songInfo = parse(rawData);
-      await sp.play(songInfo);
+      await play(songInfo, device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
@@ -202,7 +215,7 @@ describe('testing Spotify class', () => {
     window.fetch = mockFetchReject();
     try {
       const songInfo = parse({ ...rawData, context: null });
-      await sp.play(songInfo);
+      await play(songInfo, device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
@@ -212,7 +225,7 @@ describe('testing Spotify class', () => {
     window.fetch = mockFetchReject();
     try {
       const songInfo = parse(rawData);
-      await sp.play(songInfo);
+      await play(songInfo, device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }

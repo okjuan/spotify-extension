@@ -1,24 +1,32 @@
-import { TrackInfo } from './interface';
+import { TrackInfo, Token, Device } from './interface';
 import { parse } from './parse';
-import { Spotify } from './spotify';
+import {
+  getDevices,
+  getAccessToken,
+  getCurrentPlayBack,
+  getRecentlyPlayedTrack
+} from './spotify';
 import { displayControlButtons, displayBox, displayTrackInfo, registerEvents } from './dom';
 import { CACHE_KEY } from './constants';
+import { shouldUpdateCache } from './utils';
 
 export class App {
-  private readonly sp: Spotify;
   private track: TrackInfo;
+  private token: Token;
+  private device: Device;
 
   constructor() {
-    this.sp = new Spotify();
+    this.token = null;
     this.track = null;
+    this.device = null;
   }
 
   public async render() {
     // Get access token
-    await this.sp.getAccessToken();
+    this.token = await getAccessToken();
 
     // Get active device
-    await this.sp.getDevices();
+    this.device = await getDevices(this.token.accessToken);
 
     if (!this.isLogin()) {
       displayBox('login-notification');
@@ -41,7 +49,7 @@ export class App {
 
       this.track = await this.getTrack(playingTrack);
 
-      if (this.shouldUpdateCache(playingTrack, this.track)) {
+      if (shouldUpdateCache(playingTrack, this.track)) {
         chrome.storage.sync.set({ playingTrack: this.track });
       } else {
         // if the playback is undefined
@@ -101,7 +109,8 @@ export class App {
     // register events for player controls
     // prev, play, next
     registerEvents(
-      this.sp,
+      this.token,
+      this.device,
       this.track,
       this.render.bind(this),
       this.updateTrackCache.bind(this),
@@ -110,39 +119,26 @@ export class App {
   };
 
   private async getTrack(cachedTrack: TrackInfo) {
-    let track = await this.sp.getCurrentPlayBack();
+    let track = await getCurrentPlayBack(this.token.accessToken);
 
     // If it is a new user & the desktop app is not active
     // Get the recently played track
     if ((!track && !cachedTrack) || (track && !track.item)) {
-      track = await this.sp.getRecentlyPlayedTrack();
+      track = await getRecentlyPlayedTrack(this.token.accessToken);
     }
 
     return parse(track);
   }
 
-  private shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo) {
-    if (
-      !prevTrack ||
-      (currentTrack && currentTrack.title !== prevTrack.title) ||
-      (currentTrack && currentTrack.isPlaying !== prevTrack.isPlaying) ||
-      (currentTrack && currentTrack.uri !== prevTrack.uri) ||
-      (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.progressMs !== prevTrack.progressMs)
-    ) {
-      return true;
-    }
-    return false;
-  }
-
   private isDeviceOpening() {
-    if (this.sp.device) {
+    if (this.device) {
       return true;
     }
     return false;
   }
 
   private isLogin() {
-    return !this.sp.token.isAnonymous;
+    return !this.token.isAnonymous;
   }
 
   /*
