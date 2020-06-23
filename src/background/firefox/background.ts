@@ -8,7 +8,7 @@ browser.menus.create({
 
 browser.menus.onClicked.addListener(function (info) {
   if (info.menuItemId === CONTEXT_MENU_ITEM) {
-    chrome.tabs.create({
+    browser.tabs.create({
       url: `${WEB_PLAYER_URL}/search/${info.selectionText}`,
     });
   }
