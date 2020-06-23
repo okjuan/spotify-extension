@@ -81,8 +81,30 @@ export function displayTrackInfo(playback: TrackInfo) {
 
 function getColors() {
   const img = document.getElementById('cover-photo');
+  const result = {
+    text: '',
+    background: '',
+  };
+
+  // FireFox security
   const colorThief = new ColorThief();
-  const palette = colorThief.getPalette(img);
+  let palette;
+
+  img.setAttribute('crossOrigin', 'Anonymous');
+
+  // FireFox security
+  try {
+    palette = colorThief.getPalette(img);
+  } catch (e) {
+    if (e.name !== 'SecurityError') {
+      throw e;
+    }
+  }
+
+  if (!palette) {
+    return result;
+  }
+
   const mainColor = palette[0];
 
   const mode = getModeOfColor(mainColor[0], mainColor[1], mainColor[2]);
@@ -112,10 +134,10 @@ function getColors() {
       break;
   }
 
-  return {
-    text: textColor,
-    background: mainColor,
-  };
+  result.background = mainColor
+  result.text = textColor;
+
+  return result;
 }
 
 function getModeOfColor(red, green, blue): 'dark' | 'light' {
