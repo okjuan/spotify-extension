@@ -2,7 +2,12 @@
   "name": "Spotify Player",
   "version": "1.4",
   "description": "Spotify Player Chrome's extension",
-  "permissions": ["contextMenus", "declarativeContent", "storage", "http://*/*", "https://*/*"],
+  "permissions": [
+    "contextMenus",
+    "declarativeContent",
+    "http://*/*",
+    "https://*/*"
+  ],
   "manifest_version": 2,
   "background": {
     "page": "background.html",
