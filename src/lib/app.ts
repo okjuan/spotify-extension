@@ -45,7 +45,7 @@ export class App {
     this.track = await this.getTrack(cachedTrack);
 
     if (shouldUpdateCache(cachedTrack, this.track)) {
-      Storage.set(CACHE_KEY, this.track)
+      Storage.set(CACHE_KEY, this.track);
     } else {
       // if the playback is undefined
       // mean the Spotify App is not in active mode
@@ -138,9 +138,12 @@ export class App {
    * and render UI with new song information
    */
   private startTimer() {
+    const durationMs = this.track.durationMs || 0;
+    const progressMs = this.track.progressMs || 0;
+
     const timer = setInterval(() => {
       this.displayPlayerBox();
       clearInterval(timer);
-    }, this.track.durationMs - this.track.progressMs);
+    }, durationMs - progressMs);
   }
 }

@@ -1,14 +1,13 @@
 {
   "name": "Spotify Player",
   "version": "1.4",
-  "description": "Spotify Player Chrome's extension",
-  "permissions": [
-    "contextMenus",
-    "http://*/*",
-    "https://*/*",
-    "webRequest"
-  ],
+  "description": "Spotify Player Firefox's extension",
+  "permissions": ["menus", "http://*/*", "https://*/*"],
   "manifest_version": 2,
+  "background": {
+    "page": "background.html",
+    "persistent": true
+  },
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
