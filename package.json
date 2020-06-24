@@ -7,8 +7,8 @@
     "prettier": "prettier --write '**/**/*.{ts,tsx}'",
     "dev-chrome": "env BROWSER='chrome' webpack --config webpack/webpack.dev.js --watch",
     "dev-firefox": "env BROWSER='firefox' webpack --config webpack/webpack.dev.js --watch",
-    "chrome": "env BROWSER='chrome' webpack --config webpack/webpack.prod.js",
-    "firefox": "env BROWSER='firefox' webpack --config webpack/webpack.prod.js",
+    "chrome": "rimraf dist && env BROWSER='chrome' webpack --config webpack/webpack.prod.js",
+    "firefox": "rimraf dist && env BROWSER='firefox' webpack --config webpack/webpack.prod.js",
     "test": "jest"
   },
   "repository": {
