@@ -1,4 +1,6 @@
 import { TrackInfo } from './interface';
+import { CACHE_KEY } from './constants';
+import { Storage } from './storage';
 
 export function shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo) {
   if (
@@ -11,4 +13,15 @@ export function shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo)
     return true;
   }
   return false;
+}
+
+export function updateTrackCache(value: TrackInfo) {
+  const playingTrack = Storage.get(CACHE_KEY);
+  if (playingTrack) {
+    Storage.set(CACHE_KEY, { ...playingTrack, ...value });
+  }
+}
+
+export function updateTrackInfo<K1 extends keyof TrackInfo>(track, key: K1, value: TrackInfo[K1]) {
+  track[key] = value;
 }

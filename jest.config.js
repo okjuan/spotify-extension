@@ -1,7 +1,12 @@
 const ignores = ['/node_modules/', '__mocks__'];
 
 module.exports = {
-  collectCoverageFrom: ['src/lib/parse.ts', 'src/lib/spotify.ts'],
+  collectCoverageFrom: [
+    'src/lib/parse.ts',
+    'src/lib/spotify.ts',
+    'src/lib/app.ts',
+    'src/lib/utils.ts',
+  ],
   testMatch: ['**/test/**/*.spec.+(ts|tsx|js)'],
   testPathIgnorePatterns: [...ignores],
   coveragePathIgnorePatterns: [...ignores, 'src/(umd|cjs|esm)-entry.js$'],

@@ -4,6 +4,7 @@ import { getDevices, getAccessToken, getCurrentPlayBack, getRecentlyPlayedTrack 
 import { displayControlButtons, displayBox, displayTrackInfo, registerEvents } from './dom';
 import { CACHE_KEY } from './constants';
 import { shouldUpdateCache } from './utils';
+import { Storage } from './storage';
 
 export class App {
   private track: TrackInfo;
@@ -33,34 +34,32 @@ export class App {
       return;
     }
 
-    this.displayPlayerBox();
+    await this.displayPlayerBox();
   }
 
-  private displayPlayerBox() {
+  private async displayPlayerBox() {
     displayBox('player');
 
-    chrome.storage.sync.get([CACHE_KEY], async (result) => {
-      const { playingTrack } = result;
+    const cachedTrack = Storage.get(CACHE_KEY);
 
-      this.track = await this.getTrack(playingTrack);
+    this.track = await this.getTrack(cachedTrack);
 
-      if (shouldUpdateCache(playingTrack, this.track)) {
-        chrome.storage.sync.set({ playingTrack: this.track });
+    if (shouldUpdateCache(cachedTrack, this.track)) {
+      Storage.set(CACHE_KEY, this.track);
+    } else {
+      // if the playback is undefined
+      // mean the Spotify App is not in active mode
+      if (!this.track) {
+        this.track = { ...cachedTrack, isPlaying: false };
       } else {
-        // if the playback is undefined
-        // mean the Spotify App is not in active mode
-        if (!this.track) {
-          this.track = { ...playingTrack, isPlaying: false };
-        } else {
-          this.track = playingTrack;
-        }
+        this.track = cachedTrack;
       }
+    }
 
-      this.handleDOM();
+    this.handleDOM();
 
-      // detect when new song information are fetched and render UI again
-      this.startTimer();
-    });
+    // detect when new song information are fetched and render UI again
+    this.startTimer();
   }
 
   private displayNoDeviceBox() {
@@ -70,27 +69,13 @@ export class App {
 
     // If there is no devices are opening
     // then get the track info from cache and modify the state "isPlaying" to false
-    chrome.storage.sync.get(['playingTrack'], async function (result) {
-      const { playingTrack } = result;
-      if (playingTrack) {
-        playingTrack.isPlaying = false;
-        chrome.storage.sync.set({ playingTrack });
-      }
-    });
-  }
+    const cachedTrack = Storage.get(CACHE_KEY);
 
-  private updateTrackCache(value: TrackInfo) {
-    chrome.storage.sync.get([CACHE_KEY], (result) => {
-      const { playingTrack } = result;
-      if (playingTrack) {
-        chrome.storage.sync.set({ ...playingTrack, ...value });
-      }
-    });
+    if (cachedTrack) {
+      cachedTrack.isPlaying = false;
+      Storage.set(CACHE_KEY, cachedTrack);
+    }
   }
-
-  private updateTrackInfo = <K1 extends keyof TrackInfo>(key: K1, value: TrackInfo[K1]) => {
-    this.track[key] = value;
-  };
 
   private handleDOM = () => {
     if (this.track) {
@@ -103,14 +88,7 @@ export class App {
 
     // register events for player controls
     // prev, play, next
-    registerEvents(
-      this.token,
-      this.device,
-      this.track,
-      this.render.bind(this),
-      this.updateTrackCache.bind(this),
-      this.updateTrackInfo.bind(this)
-    );
+    registerEvents(this.token, this.device, this.track, this.render.bind(this));
   };
 
   private async getTrack(cachedTrack: TrackInfo) {
@@ -142,9 +120,14 @@ export class App {
    * and render UI with new song information
    */
   private startTimer() {
-    const timer = setInterval(() => {
+    if (!this.track) return;
+
+    const durationMs = this.track.durationMs;
+    const progressMs = this.track.progressMs || 0;
+
+    const timer = setTimeout(() => {
       this.displayPlayerBox();
-      clearInterval(timer);
-    }, this.track.durationMs - this.track.progressMs);
+      clearTimeout(timer);
+    }, durationMs - progressMs);
   }
 }

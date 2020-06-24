@@ -265,3 +265,17 @@ export const playback = {
   },
   is_playing: true,
 };
+
+export const cachedTrack = {
+  artist: {
+    name: 'Vigiland',
+    url: 'https://open.spotify.com/artist/3tLYpanVDomWAZqF82NPds',
+  },
+  coverPhoto: 'https://i.scdn.co/image/ab67616d00001e026d28740cfef10881630f1a63',
+  durationMs: 174064,
+  isPlaying: true,
+  progressMs: 167085,
+  title: 'We’re The Same‬‬',
+  trackUrl: 'https://open.spotify.com/track/4rJcxFOljjd2sqfgIjksTI',
+  uri: 'spotify:track:4rJcxFOljjd2sqfgIjksTI',
+};

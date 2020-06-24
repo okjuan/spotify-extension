@@ -1,6 +1,7 @@
 import { TrackInfo, Token, Device } from './interface';
 import { pause as pauseTrack, next as nextTrack, prev as prevTrack, play as playTrack } from './spotify';
 import ColorThief from 'colorthief';
+import { updateTrackCache, updateTrackInfo } from './utils';
 
 const LIMIT = 128;
 const BOX_SHADOW = '10px 0px 20px 15px';
@@ -81,8 +82,30 @@ export function displayTrackInfo(playback: TrackInfo) {
 
 function getColors() {
   const img = document.getElementById('cover-photo');
+  const result = {
+    text: '',
+    background: '',
+  };
+
+  // FireFox security
   const colorThief = new ColorThief();
-  const palette = colorThief.getPalette(img);
+  let palette;
+
+  img.setAttribute('crossOrigin', 'Anonymous');
+
+  // FireFox security
+  try {
+    palette = colorThief.getPalette(img);
+  } catch (e) {
+    if (e.name !== 'SecurityError') {
+      throw e;
+    }
+  }
+
+  if (!palette) {
+    return result;
+  }
+
   const mainColor = palette[0];
 
   const mode = getModeOfColor(mainColor[0], mainColor[1], mainColor[2]);
@@ -112,10 +135,10 @@ function getColors() {
       break;
   }
 
-  return {
-    text: textColor,
-    background: mainColor,
-  };
+  result.background = mainColor;
+  result.text = textColor;
+
+  return result;
 }
 
 function getModeOfColor(red, green, blue): 'dark' | 'light' {
@@ -167,14 +190,7 @@ export function displayBox(mode: BoxType) {
   }
 }
 
-export function registerEvents(
-  token: Token,
-  device: Device,
-  playback: TrackInfo,
-  render: () => void,
-  updateTrackCache: (value: TrackInfo) => void,
-  updateTrackInfo: (key: keyof TrackInfo, value) => void
-) {
+export function registerEvents(token: Token, device: Device, playback: TrackInfo, render: () => void) {
   const btnPrev = document.getElementById('prev');
   const btnPause = document.getElementById('pause');
   const btnPlay = document.getElementById('play');
@@ -218,14 +234,14 @@ export function registerEvents(
   async function pause() {
     displayControlButtons('play');
     await pauseTrack(device.id, token.accessToken);
-    updateTrackInfo('isPlaying', false);
+    updateTrackInfo(playback, 'isPlaying', false);
     updateTrackCache({ isPlaying: false });
   }
 
   async function play() {
     displayControlButtons('pause');
     await playTrack(playback, device.id, token.accessToken);
-    updateTrackInfo('isPlaying', true);
+    updateTrackInfo(playback, 'isPlaying', true);
     updateTrackCache({ isPlaying: true });
   }
 }
