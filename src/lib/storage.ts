@@ -4,7 +4,9 @@ export class Storage {
 
     try {
       result = JSON.parse(localStorage.getItem(key));
-    } catch { }
+    } catch {
+      result = undefined;
+    }
 
     return result;
   }
@@ -14,7 +16,9 @@ export class Storage {
 
     try {
       val = JSON.stringify(value);
-    } catch { }
+    } catch {
+      val = undefined;
+    }
 
     localStorage.setItem(key, val);
   }

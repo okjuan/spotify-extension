@@ -1,6 +1,7 @@
 import { TrackInfo, Token, Device } from './interface';
 import { pause as pauseTrack, next as nextTrack, prev as prevTrack, play as playTrack } from './spotify';
 import ColorThief from 'colorthief';
+import { updateTrackCache, updateTrackInfo } from './utils';
 
 const LIMIT = 128;
 const BOX_SHADOW = '10px 0px 20px 15px';
@@ -134,7 +135,7 @@ function getColors() {
       break;
   }
 
-  result.background = mainColor
+  result.background = mainColor;
   result.text = textColor;
 
   return result;
@@ -189,14 +190,7 @@ export function displayBox(mode: BoxType) {
   }
 }
 
-export function registerEvents(
-  token: Token,
-  device: Device,
-  playback: TrackInfo,
-  render: () => void,
-  updateTrackCache: (value: TrackInfo) => void,
-  updateTrackInfo: (key: keyof TrackInfo, value) => void
-) {
+export function registerEvents(token: Token, device: Device, playback: TrackInfo, render: () => void) {
   const btnPrev = document.getElementById('prev');
   const btnPause = document.getElementById('pause');
   const btnPlay = document.getElementById('play');
@@ -240,14 +234,14 @@ export function registerEvents(
   async function pause() {
     displayControlButtons('play');
     await pauseTrack(device.id, token.accessToken);
-    updateTrackInfo('isPlaying', false);
+    updateTrackInfo(playback, 'isPlaying', false);
     updateTrackCache({ isPlaying: false });
   }
 
   async function play() {
     displayControlButtons('pause');
     await playTrack(playback, device.id, token.accessToken);
-    updateTrackInfo('isPlaying', true);
+    updateTrackInfo(playback, 'isPlaying', true);
     updateTrackCache({ isPlaying: true });
   }
 }

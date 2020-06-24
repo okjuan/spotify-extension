@@ -34,7 +34,7 @@ export class App {
       return;
     }
 
-    this.displayPlayerBox();
+    await this.displayPlayerBox();
   }
 
   private async displayPlayerBox() {
@@ -77,17 +77,6 @@ export class App {
     }
   }
 
-  private updateTrackCache(value: TrackInfo) {
-    const playingTrack = Storage.get(CACHE_KEY);
-    if (playingTrack) {
-      Storage.set(CACHE_KEY, { ...playingTrack, ...value });
-    }
-  }
-
-  private updateTrackInfo = <K1 extends keyof TrackInfo>(key: K1, value: TrackInfo[K1]) => {
-    this.track[key] = value;
-  };
-
   private handleDOM = () => {
     if (this.track) {
       // update DOM UI
@@ -99,14 +88,7 @@ export class App {
 
     // register events for player controls
     // prev, play, next
-    registerEvents(
-      this.token,
-      this.device,
-      this.track,
-      this.render.bind(this),
-      this.updateTrackCache.bind(this),
-      this.updateTrackInfo.bind(this)
-    );
+    registerEvents(this.token, this.device, this.track, this.render.bind(this));
   };
 
   private async getTrack(cachedTrack: TrackInfo) {
@@ -138,12 +120,14 @@ export class App {
    * and render UI with new song information
    */
   private startTimer() {
-    const durationMs = this.track.durationMs || 0;
+    if (!this.track) return;
+
+    const durationMs = this.track.durationMs;
     const progressMs = this.track.progressMs || 0;
 
-    const timer = setInterval(() => {
+    const timer = setTimeout(() => {
       this.displayPlayerBox();
-      clearInterval(timer);
+      clearTimeout(timer);
     }, durationMs - progressMs);
   }
 }
