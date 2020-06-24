@@ -55,9 +55,15 @@ Search song by name with Chrome's context menu
 
 <img width="487" alt="Screen Shot 2020-05-21 at 23 45 34" src="https://user-images.githubusercontent.com/6290720/82570946-3cd5f300-9bbd-11ea-98d0-c15dda420c2b.png">
 
-## Chrome store
+## Stores
+
+**Chrome**
 
 [https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa](https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa)
+
+**Firefox**
+
+[https://addons.mozilla.org/en-US/firefox/addon/spotify-player/](https://addons.mozilla.org/en-US/firefox/addon/spotify-player/)
 
 ## Development
 
@@ -65,8 +71,16 @@ Search song by name with Chrome's context menu
 npm i
 ```
 
+**Chrome**
+
 ```bash
-npm run dev
+npm run dev-chrome
+```
+
+**Firefox**
+
+```bash
+npm run dev-firefox
 ```
 
 ## Production
@@ -75,17 +89,35 @@ npm run dev
 npm i
 ```
 
+**Chrome**
+
 ```bash
-npm run build
+npm run chrome
+```
+
+**Firefox**
+
+```bash
+npm run firefox
 ```
 
 ## Load package to Chrome
 
 1. On the browser's URL address bar
-2. Enter [chrome://extensions/](chrome://extensions/)
+2. Enter `chrome://extensions/`
 3. Switch to "**Developer mode**"
 4. Load "**Load unpacked**"
 5. Browse to `dist/` in source code
 6. Done!
 
 Check here for more detail: [https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
+
+## Load package to Firefox
+
+1. On the browser's URL address bar
+2. Enter `about:debugging#/runtime/this-firefox`
+3. Click **Load Temporary Add-on...**
+4. Browser to your `manifest.json` & click **Open**
+5. Done!
+
+Check here for more detail: [https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
