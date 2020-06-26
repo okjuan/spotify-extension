@@ -38,7 +38,7 @@ export function displayTrackInfo(playback: TrackInfo) {
     const img = document.createElement('img');
     img.setAttribute('src', coverPhoto);
     img.setAttribute('id', 'cover-photo');
-    img.setAttribute('class', 'mini-spotify-right-panel');
+    img.setAttribute('class', 'mini-spotify-right-panel mini-spotify-cover-photo');
     img.setAttribute('title', `${title} - ${artist}`);
     img.setAttribute('alt', `${title} - ${artist}`);
 

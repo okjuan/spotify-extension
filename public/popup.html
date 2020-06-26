@@ -6,7 +6,7 @@
   <style>
     :root {
       --height: 148px;
-      --width: 390px;
+      --width: 400px;
       --font: Helvetica, Arial, sans-serif;
     }
 
@@ -129,6 +129,10 @@
       padding: 16px;
     }
 
+    .mini-spotify-cover-photo {
+      object-fit: cover;
+    }
+
     @media (prefers-color-scheme: dark) {
       .mini-spotify-player-wrapper {
         color: #bbe1fa;
@@ -193,7 +197,8 @@
     <span>
       Oops!!! Looks like
       <b>
-        Spotify's Desktop App or Web Player
+        Spotify's Desktop App or <a class="mini-spotify-player-link" target="_blank"
+          href="https://open.spotify.com/">Web Player</a>
       </b>
       is not running
     </span>
