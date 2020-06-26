@@ -12,14 +12,6 @@ export class Storage {
   }
 
   static set(key, value) {
-    let val;
-
-    try {
-      val = JSON.stringify(value);
-    } catch {
-      val = undefined;
-    }
-
-    localStorage.setItem(key, val);
+    localStorage.setItem(key, JSON.stringify(value));
   }
 }

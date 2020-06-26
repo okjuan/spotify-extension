@@ -6,6 +6,7 @@ module.exports = {
     'src/lib/spotify.ts',
     'src/lib/app.ts',
     'src/lib/utils.ts',
+    'src/lib/storage.ts',
   ],
   testMatch: ['**/test/**/*.spec.+(ts|tsx|js)'],
   testPathIgnorePatterns: [...ignores],
