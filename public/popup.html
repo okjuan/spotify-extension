@@ -1,215 +1,214 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <style>
-      :root {
-        --min-height: 168px;
-        --width: 390px;
-        --font: Helvetica, Arial, sans-serif;
-      }
 
-      body {
-        font-family: var(--font);
+<head>
+  <meta charset="utf-8" />
+  <style>
+    :root {
+      --height: 148px;
+      --width: 390px;
+      --font: Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+    }
+
+    .mini-spotify-player-body {
+      margin: 0;
+      background: transparent;
+      width: var(--width);
+      height: var(--height);
+    }
+
+    .mini-spotify-player-link {
+      font-weight: bold;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    .mini-spotify-player-wrapper {
+      display: none;
+      width: var(--width);
+      height: var(--height);
+      color: rgba(0, 0, 0, 0.54);
+      background-color: #f4f4f4;
+      transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      border-radius: 4px;
+      box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+        0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    }
+
+    .mini-spotify-left-panel {
+      display: flex;
+      flex-direction: column;
+      z-index: 1;
+    }
+
+    .mini-spotify-left-panel-info {
+      flex: 1 0 auto;
+      padding: 16px;
+    }
+
+    .mini-spotify-left-panel-info-heading {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-size: 15px;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      font-weight: 400;
+      line-height: 1.334;
+      letter-spacing: 0em;
+      margin: 0;
+    }
+
+    .mini-spotify-left-panel-info-sub-heading {
+      font-size: 11px;
+      font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      font-weight: 400;
+      line-height: 1.75;
+      letter-spacing: 0.00938em;
+      margin: 0;
+    }
+
+    .mini-spotify-left-panel-control {
+      display: flex;
+      align-items: center;
+      padding-left: 8px;
+      padding-bottom: 8px;
+      width: 214px;
+    }
+
+    .mini-spotify-button-base {
+      color: inherit;
+      border: 0;
+      cursor: pointer;
+      margin: 0;
+      display: inline-flex;
+      outline: 0;
+      padding: 0;
+      position: relative;
+      align-items: center;
+      user-select: none;
+      border-radius: 0;
+      vertical-align: middle;
+      justify-content: center;
+      text-decoration: none;
+      background-color: transparent;
+      -webkit-appearance: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .mini-spotify-button-base:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .mini-spotify-icon-button-base {
+      flex: 0 0 auto;
+      color: rgba(0, 0, 0, 0.54);
+      padding: 12px;
+      overflow: visible;
+      text-align: center;
+      transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+      border-radius: 50%;
+    }
+
+    .mini-spotify-right-panel {
+      display: flex;
+      width: 100%;
+    }
+
+    .mini-spotify-player-notification {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .mini-spotify-player-notification>span {
+      padding: 16px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .mini-spotify-player-wrapper {
+        color: #bbe1fa;
+        background-color: #1f4068;
       }
 
       .mini-spotify-player-body {
-        margin: 0;
-        background: transparent;
-        width: var(--width);
-        min-height: var(--min-height);
+        background-color: #1f4068;
       }
 
       .mini-spotify-player-link {
-        font-weight: bold;
-        color: rgba(0, 0, 0, 0.54);
+        color: #bbe1fa;
       }
+    }
+  </style>
+</head>
 
-      .mini-spotify-player-wrapper {
-        display: none;
-        width: var(--width);
-        min-height: var(--min-height);
-        color: rgba(0, 0, 0, 0.54);
-        background-color: #f4f4f4;
-        transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-        border-radius: 4px;
-        box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14),
-          0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-      }
-
-      .mini-spotify-left-panel {
-        display: flex;
-        flex-direction: column;
-        z-index: 1;
-      }
-
-      .mini-spotify-left-panel-info {
-        flex: 1 0 auto;
-        padding: 16px;
-      }
-
-      .mini-spotify-left-panel-info-heading {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        font-size: 15px;
-        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-        font-weight: 400;
-        line-height: 1.334;
-        letter-spacing: 0em;
-        margin: 0;
-      }
-
-      .mini-spotify-left-panel-info-sub-heading {
-        font-size: 11px;
-        font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-        font-weight: 400;
-        line-height: 1.75;
-        letter-spacing: 0.00938em;
-        margin: 0;
-      }
-
-      .mini-spotify-left-panel-control {
-        display: flex;
-        align-items: center;
-        padding-left: 8px;
-        padding-bottom: 8px;
-        width: 214px;
-      }
-
-      .mini-spotify-button-base {
-        color: inherit;
-        border: 0;
-        cursor: pointer;
-        margin: 0;
-        display: inline-flex;
-        outline: 0;
-        padding: 0;
-        position: relative;
-        align-items: center;
-        user-select: none;
-        border-radius: 0;
-        vertical-align: middle;
-        justify-content: center;
-        text-decoration: none;
-        background-color: transparent;
-        -webkit-appearance: none;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      .mini-spotify-button-base:hover {
-        background-color: rgba(0, 0, 0, 0.04);
-      }
-
-      .mini-spotify-icon-button-base {
-        flex: 0 0 auto;
-        color: rgba(0, 0, 0, 0.54);
-        padding: 12px;
-        overflow: visible;
-        text-align: center;
-        transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-        border-radius: 50%;
-      }
-
-      .mini-spotify-right-panel {
-        display: flex;
-        width: 100%;
-      }
-
-      .mini-spotify-player-notification {
-        display: none;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-
-      .mini-spotify-player-notification > span {
-        padding: 16px;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        .mini-spotify-player-wrapper {
-          color: #bbe1fa;
-          background-color: #1f4068;
-        }
-
-        .mini-spotify-player-body {
-          background-color: #1f4068;
-        }
-
-        .mini-spotify-player-link {
-          color: #bbe1fa;
-        }
-      }
-    </style>
-  </head>
-
-  <body class="mini-spotify-player-body">
-    <div id="spotify-mini-player" class="mini-spotify-player-wrapper">
-      <div id="information-box" class="mini-spotify-left-panel">
-        <div class="mini-spotify-left-panel-info">
-          <a id="title" class="mini-spotify-left-panel-info-heading"></a>
-          <br />
-          <a id="artist" class="mini-spotify-left-panel-info-sub-heading"></a>
-        </div>
-
-        <div class="mini-spotify-left-panel-control">
-          <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="prev">
-            <svg id="prevIcon" height="24" viewBox="0 0 24 24" width="24">
-              <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
-              <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-          </button>
-
-          <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="pause">
-            <svg id="pauseIcon" height="24" viewBox="0 0 24 24" width="24">
-              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
-              <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-          </button>
-
-          <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="play">
-            <svg id="playIcon" height="24" viewBox="0 0 24 24" width="24">
-              <path d="M8 5v14l11-7z" />
-              <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-          </button>
-
-          <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="next">
-            <svg id="nextIcon" height="24" viewBox="0 0 24 24" width="24">
-              <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
-              <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-          </button>
-        </div>
+<body class="mini-spotify-player-body">
+  <div id="spotify-mini-player" class="mini-spotify-player-wrapper">
+    <div id="information-box" class="mini-spotify-left-panel">
+      <div class="mini-spotify-left-panel-info">
+        <a id="title" class="mini-spotify-left-panel-info-heading"></a>
+        <br />
+        <a id="artist" class="mini-spotify-left-panel-info-sub-heading"></a>
       </div>
 
-      <div id="cover-photo-wrapper" class="mini-spotify-right-panel"></div>
+      <div class="mini-spotify-left-panel-control">
+        <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="prev">
+          <svg id="prevIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+
+        <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="pause">
+          <svg id="pauseIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+
+        <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="play">
+          <svg id="playIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M8 5v14l11-7z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+
+        <button class="mini-spotify-button-base mini-spotify-icon-button-base" id="next">
+          <svg id="nextIcon" height="24" viewBox="0 0 24 24" width="24">
+            <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+          </svg>
+        </button>
+      </div>
     </div>
 
-    <div id="spotify-mini-player-notification" class="mini-spotify-player-wrapper mini-spotify-player-notification">
-      <span>
-        Oops!!! Looks like
-        <b>
-          Spotify's Desktop App or Web Player
-        </b>
-        is not running
-      </span>
-    </div>
+    <div id="cover-photo-wrapper" class="mini-spotify-right-panel"></div>
+  </div>
 
-    <div
-      id="spotify-mini-player-login-notification"
-      class="mini-spotify-player-wrapper mini-spotify-player-notification"
-    >
-      <span>
-        Log in on
-        <b>
-          <a class="mini-spotify-player-link" href="https://accounts.spotify.com/login" target="_blank">Spotify</a>
-        </b>
-      </span>
-    </div>
+  <div id="spotify-mini-player-notification" class="mini-spotify-player-wrapper mini-spotify-player-notification">
+    <span>
+      Oops!!! Looks like
+      <b>
+        Spotify's Desktop App or Web Player
+      </b>
+      is not running
+    </span>
+  </div>
 
-    <script src="js/popup.js"></script>
-  </body>
+  <div id="spotify-mini-player-login-notification" class="mini-spotify-player-wrapper mini-spotify-player-notification">
+    <span>
+      Log in on
+      <b>
+        <a class="mini-spotify-player-link" href="https://accounts.spotify.com/login" target="_blank">Spotify</a>
+      </b>
+    </span>
+  </div>
+
+  <script src="js/popup.js"></script>
+</body>
+
 </html>
