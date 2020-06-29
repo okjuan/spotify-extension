@@ -20,12 +20,12 @@ export function parse(rawData): TrackInfo {
   let artistName = '';
   let artistUrl = '';
 
-  if (artists && artists.length) {
+  if (artists?.length) {
     artistName = artists[0].name;
     artistUrl = artists[0].external_urls.spotify;
   }
 
-  const coverPhoto = images && images.length ? images[1].url : '';
+  const coverPhoto = images?.length ? images[1].url : '';
 
   let context;
   if (rawData.context) {

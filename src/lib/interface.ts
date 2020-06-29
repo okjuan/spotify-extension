@@ -52,3 +52,5 @@ export interface PlayPostData {
     uri: string;
   };
 }
+
+export type PlayerState = 'nothing' | 'no-song-playing' | 'cache';
