@@ -11,6 +11,7 @@ export function parse(rawData): TrackInfo {
       artists,
       album: { images },
       uri,
+      id,
       duration_ms: durationMs,
       external_urls: { spotify: trackUrl },
     },
@@ -50,5 +51,6 @@ export function parse(rawData): TrackInfo {
     context,
     durationMs,
     trackUrl,
+    id,
   };
 }

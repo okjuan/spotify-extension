@@ -1,6 +1,6 @@
 import { TrackInfo, Token, Device } from './interface';
 import { parse } from './parse';
-import { getDevices, getAccessToken, getCurrentPlayBack, getRecentlyPlayedTrack } from './spotify';
+import { getDevices, getAccessToken, getCurrentPlayBack, getRecentlyPlayedTrack, checkSavedTrack } from './spotify';
 import { displayControlButtons, displayBox, displayTrackInfo, registerEvents } from './dom';
 import { CACHE_KEY } from './constants';
 import { shouldUpdateCache } from './utils';
@@ -100,7 +100,14 @@ export class App {
       track = await getRecentlyPlayedTrack(this.token.accessToken);
     }
 
-    return parse(track);
+    track = parse(track);
+
+    if (track) {
+      const isSave = await checkSavedTrack(this.token.accessToken, track.id);
+      track.isSave = isSave;
+    }
+
+    return track;
   }
 
   private isDeviceOpening() {

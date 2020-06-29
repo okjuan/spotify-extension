@@ -206,3 +206,60 @@ export async function repeat(state: 'track' | 'context' | 'off', deviceId: strin
     throw e;
   }
 }
+
+export async function checkSavedTrack(accessToken: string, ids: string) {
+  const url = `${END_POINT}/v1/me/tracks/contains?ids=${ids}`;
+
+  try {
+    const res = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    const data = await res.json();
+
+    return data[0];
+  } catch (e) {
+    return;
+  }
+}
+
+export async function saveTrack(songInfo: TrackInfo, accessToken: string) {
+  const url = `${END_POINT}/v1/me/tracks`;
+
+  const postData = {
+    ids: [songInfo.id],
+  };
+
+  try {
+    return await fetch(url, {
+      method: 'PUT',
+      body: JSON.stringify(postData),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (e) {
+    throw e;
+  }
+}
+
+export async function removeTrack(songInfo: TrackInfo, accessToken: string) {
+  const url = `${END_POINT}/v1/me/tracks`;
+
+  const postData = {
+    ids: [songInfo.id],
+  };
+
+  try {
+    return await fetch(url, {
+      method: 'DELETE',
+      body: JSON.stringify(postData),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (e) {
+    throw e;
+  }
+}

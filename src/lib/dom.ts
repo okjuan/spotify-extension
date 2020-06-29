@@ -1,5 +1,12 @@
 import { TrackInfo, Token, Device } from './interface';
-import { pause as pauseTrack, next as nextTrack, prev as prevTrack, play as playTrack } from './spotify';
+import {
+  pause as pauseTrack,
+  next as nextTrack,
+  prev as prevTrack,
+  play as playTrack,
+  saveTrack,
+  removeTrack,
+} from './spotify';
 import ColorThief from 'colorthief';
 import { updateTrackCache, updateTrackInfo } from './utils';
 
@@ -13,10 +20,11 @@ export function displayTrackInfo(playback: TrackInfo) {
   const artistName = document.getElementById('artist');
   const coverImage = document.getElementById('cover-photo-wrapper');
   const infoBox = document.getElementById('information-box');
-  const prevIcon = document.getElementById('prevIcon');
-  const playIcon = document.getElementById('playIcon');
-  const pauseIcon = document.getElementById('pauseIcon');
-  const nextIcon = document.getElementById('nextIcon');
+  const prevIcon = document.getElementById('prev-icon');
+  const playIcon = document.getElementById('play-icon');
+  const pauseIcon = document.getElementById('pause-icon');
+  const nextIcon = document.getElementById('next-icon');
+  const divider = document.getElementById('divider');
 
   const { title, artist, coverPhoto, trackUrl } = playback;
 
@@ -61,6 +69,8 @@ export function displayTrackInfo(playback: TrackInfo) {
       nextIcon.style.fill = textRGB;
       infoBox.style.backgroundColor = bgRGB;
       infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
+      divider.style.backgroundColor = textRGB;
+      renderSaveButton(playback, textRGB);
     } else {
       img.addEventListener('load', function () {
         const { background, text } = getColors();
@@ -75,8 +85,33 @@ export function displayTrackInfo(playback: TrackInfo) {
         nextIcon.style.fill = textRGB;
         infoBox.style.backgroundColor = bgRGB;
         infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
+        divider.style.backgroundColor = textRGB;
+        renderSaveButton(playback, textRGB);
       });
     }
+  }
+}
+
+function renderSaveButton(playback: TrackInfo, color) {
+  const save = document.getElementById('save');
+  const unSave = document.getElementById('un-save');
+
+  const saveIcon = document.getElementById('save-icon');
+  const unSaveIcon = document.getElementById('un-save-icon');
+
+  const type = playback.isSave === true ? 'save' : 'un-save';
+
+  switch (type) {
+    case 'un-save':
+      save.style.display = 'flex';
+      saveIcon.style.fill = color;
+      unSave.style.display = 'none';
+      break;
+    case 'save':
+      save.style.display = 'none';
+      unSave.style.display = 'flex';
+      unSaveIcon.style.fill = color;
+      break;
   }
 }
 
@@ -195,6 +230,8 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
   const btnPause = document.getElementById('pause');
   const btnPlay = document.getElementById('play');
   const btnNext = document.getElementById('next');
+  const btnSave = document.getElementById('save');
+  const btnUnSave = document.getElementById('un-save');
 
   document.addEventListener('keydown', async (e) => {
     e.preventDefault();
@@ -229,6 +266,24 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
     await nextTrack(device.id, token.accessToken);
     // after click next song, call API again to update UI
     render();
+  };
+
+  btnSave.onclick = async function (e) {
+    e.preventDefault();
+    if (!playback.isSave) {
+      // add track to saved list
+      await saveTrack(playback, token.accessToken);
+      render();
+    }
+  };
+
+  btnUnSave.onclick = async function (e) {
+    e.preventDefault();
+    if (playback.isSave) {
+      // remove track from saved list
+      await removeTrack(playback, token.accessToken);
+      render();
+    }
   };
 
   async function pause() {

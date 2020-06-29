@@ -26,6 +26,8 @@ export interface TrackInfo {
   progressMs?: number;
   durationMs?: number;
   trackUrl?: string;
+  id?: string;
+  isSave?: boolean;
   context?: {
     type: 'artist' | 'playlist' | 'album';
     href: string;
