@@ -1,6 +1,6 @@
 {
   "name": "Spotify Player",
-  "version": "1.7",
+  "version": "1.8",
   "description": "Spotify Player Firefox's extension",
   "permissions": ["menus", "http://*/*", "https://*/*"],
   "manifest_version": 2,
