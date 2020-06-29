@@ -39,8 +39,8 @@ export function displayTrackInfo(playback: TrackInfo) {
     img.setAttribute('src', coverPhoto);
     img.setAttribute('id', 'cover-photo');
     img.setAttribute('class', 'mini-spotify-right-panel mini-spotify-cover-photo');
-    img.setAttribute('title', `${title} - ${artist}`);
-    img.setAttribute('alt', `${title} - ${artist}`);
+    img.setAttribute('title', `${title} - ${artist.name}`);
+    img.setAttribute('alt', `${title} - ${artist.name}`);
 
     if (document.getElementById('cover-photo')) {
       coverImage.removeChild(document.getElementById('cover-photo'));
