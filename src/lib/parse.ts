@@ -11,6 +11,7 @@ export function parse(rawData): TrackInfo {
       artists,
       album: { images },
       uri,
+      id,
       duration_ms: durationMs,
       external_urls: { spotify: trackUrl },
     },
@@ -19,12 +20,12 @@ export function parse(rawData): TrackInfo {
   let artistName = '';
   let artistUrl = '';
 
-  if (artists && artists.length) {
+  if (artists?.length) {
     artistName = artists[0].name;
     artistUrl = artists[0].external_urls.spotify;
   }
 
-  const coverPhoto = images && images.length ? images[1].url : '';
+  const coverPhoto = images?.length ? images[1].url : '';
 
   let context;
   if (rawData.context) {
@@ -50,5 +51,6 @@ export function parse(rawData): TrackInfo {
     context,
     durationMs,
     trackUrl,
+    id,
   };
 }

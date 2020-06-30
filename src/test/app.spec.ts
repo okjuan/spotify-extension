@@ -73,11 +73,30 @@ describe('Testing App', () => {
     expect(registerEvents.called).toBeTruthy();
   });
 
-  it('should call getRecentlyPlayedTrack', async () => {
+  it('should call getRecentlyPlayedTrack - type "nothing"', async () => {
     shouldUpdateCache.returns(true);
     getAccessToken.returns(token);
     getDevices.returns(activeDevice);
     getCurrentPlayBack.returns(undefined);
+    getFunc.returns(undefined);
+    const { track: item, context } = recentlyPlayedTrack.items[0];
+    getRecentlyPlayedTrack.returns({ item, context });
+    const app = new App();
+    await app.render();
+    const mode = displayBox.args[0][0];
+    expect(mode).toEqual('player');
+    expect(displayControlButtons.called).toBeTruthy();
+    expect(displayTrackInfo.called).toBeTruthy();
+    expect(registerEvents.called).toBeTruthy();
+  });
+
+  it('should call getRecentlyPlayedTrack - type "no-song-playing"', async () => {
+    const clonePlayback = { ...playback };
+    delete clonePlayback.item;
+    shouldUpdateCache.returns(true);
+    getAccessToken.returns(token);
+    getDevices.returns(activeDevice);
+    getCurrentPlayBack.returns(clonePlayback);
     getFunc.returns(undefined);
     const { track: item, context } = recentlyPlayedTrack.items[0];
     getRecentlyPlayedTrack.returns({ item, context });
