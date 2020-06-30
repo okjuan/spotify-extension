@@ -1,6 +1,6 @@
-import { TrackInfo, Token, Device } from './interface';
+import { TrackInfo, Token, Device, PlayerState } from './interface';
 import { parse } from './parse';
-import { getDevices, getAccessToken, getCurrentPlayBack, getRecentlyPlayedTrack } from './spotify';
+import { getDevices, getAccessToken, getCurrentPlayBack, getRecentlyPlayedTrack, checkSavedTrack } from './spotify';
 import { displayControlButtons, displayBox, displayTrackInfo, registerEvents } from './dom';
 import { CACHE_KEY } from './constants';
 import { shouldUpdateCache } from './utils';
@@ -94,13 +94,41 @@ export class App {
   private async getTrack(cachedTrack: TrackInfo) {
     let track = await getCurrentPlayBack(this.token.accessToken);
 
-    // If it is a new user & the desktop app is not active
-    // Get the recently played track
-    if ((!track && !cachedTrack) || (track && !track.item)) {
-      track = await getRecentlyPlayedTrack(this.token.accessToken);
+    let type: PlayerState;
+
+    if (!track && !cachedTrack) {
+      type = 'nothing';
     }
 
-    return parse(track);
+    if (!track && cachedTrack) {
+      type = 'cache';
+    }
+
+    if (track && !track.item) {
+      // device is still active, but no song is being played
+      type = 'no-song-playing';
+    }
+
+    switch (type) {
+      case 'nothing':
+      case 'no-song-playing':
+        track = await getRecentlyPlayedTrack(this.token.accessToken);
+        break;
+      case 'cache':
+        track = cachedTrack;
+        break;
+    }
+
+    // If it is a new user & the desktop app is not active
+    // Get the recently played track
+    track = parse(track);
+
+    if (track) {
+      const isSave = await checkSavedTrack(this.token.accessToken, track.id);
+      track.isSave = isSave;
+    }
+
+    return track;
   }
 
   private isDeviceOpening() {

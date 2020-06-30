@@ -9,6 +9,9 @@ import {
   next,
   repeat,
   shuffle,
+  saveTrack,
+  removeTrack,
+  checkSavedTrack,
 } from '../lib/spotify';
 import { parse } from '../lib/parse';
 import { playback } from './fixtures/playback';
@@ -226,6 +229,57 @@ describe('testing Spotify class', () => {
     try {
       const songInfo = parse(rawData);
       await play(songInfo, device.id, token.accessToken);
+    } catch (e) {
+      expect(e.ok).toBeFalsy();
+    }
+  });
+
+  it('should return [true] - checkSavedTrack', async () => {
+    window.fetch = mockFetchResolve([true]);
+    const songInfo = parse(rawData);
+    const result = await checkSavedTrack(token.accessToken, songInfo.id);
+    expect(result).toEqual(true);
+  });
+
+  it('should return undefined - checkSavedTrack', async () => {
+    window.fetch = mockFetchReject();
+    try {
+      const songInfo = parse(rawData);
+      await checkSavedTrack(token.accessToken, songInfo.id);
+    } catch (e) {
+      expect(e.ok).toBeFalsy();
+    }
+  });
+
+  it('should save track', async () => {
+    window.fetch = mockFetchResolve();
+    const songInfo = parse(rawData);
+    const result = await saveTrack(songInfo, token.accessToken);
+    expect(result.ok).toBeTruthy();
+  });
+
+  it('should not save track', async () => {
+    window.fetch = mockFetchReject();
+    try {
+      const songInfo = parse(rawData);
+      await saveTrack(songInfo, token.accessToken);
+    } catch (e) {
+      expect(e.ok).toBeFalsy();
+    }
+  });
+
+  it('should remove track', async () => {
+    window.fetch = mockFetchResolve();
+    const songInfo = parse(rawData);
+    const result = await removeTrack(songInfo, token.accessToken);
+    expect(result.ok).toBeTruthy();
+  });
+
+  it('should not removeTrack track', async () => {
+    window.fetch = mockFetchReject();
+    try {
+      const songInfo = parse(rawData);
+      await removeTrack(songInfo, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }
