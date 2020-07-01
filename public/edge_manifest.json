@@ -1,0 +1,29 @@
+{
+  "name": "Spotify Player",
+  "version": "1.9",
+  "description": "Spotify Player Microsoft Edge's extension",
+  "permissions": [
+    "contextMenus",
+    "declarativeContent",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "manifest_version": 2,
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/spotify-mini-player-16.png",
+      "48": "images/spotify-mini-player-48.png",
+      "128": "images/spotify-mini-player-128.png"
+    }
+  },
+  "icons": {
+    "16": "images/spotify-mini-player-16.png",
+    "48": "images/spotify-mini-player-48.png",
+    "128": "images/spotify-mini-player-128.png"
+  }
+}
