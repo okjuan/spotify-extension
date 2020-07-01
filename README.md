@@ -23,11 +23,14 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 ### Main screens
 
-<img width="400" alt="Screen Shot 2020-06-21 at 0 20 46" src="https://user-images.githubusercontent.com/6290720/85205249-1d192280-b355-11ea-9c29-f28f9bb6bcbf.png">
+<img width="409" alt="Screen Shot 2020-07-01 at 15 31 12" src="https://user-images.githubusercontent.com/6290720/86210759-1c338c80-bbb0-11ea-96c6-b0f781e5df15.png">
 
-<img width="402" alt="Screen Shot 2020-06-21 at 0 20 57" src="https://user-images.githubusercontent.com/6290720/85205252-2b673e80-b355-11ea-97fd-1ccb1cbdcd3a.png">
+<img width="406" alt="Screen Shot 2020-07-01 at 15 33 13" src="https://user-images.githubusercontent.com/6290720/86210952-77fe1580-bbb0-11ea-9c67-34d53bfb3b4b.png">
 
-<img width="403" alt="Screen Shot 2020-06-21 at 0 21 05" src="https://user-images.githubusercontent.com/6290720/85205254-2e622f00-b355-11ea-8725-1860338c911b.png">
+<img width="410" alt="Screen Shot 2020-07-01 at 15 31 40" src="https://user-images.githubusercontent.com/6290720/86210974-83e9d780-bbb0-11ea-8fcb-2d69a4ab6895.png">
+
+<img width="411" alt="Screen Shot 2020-07-01 at 15 31 25" src="https://user-images.githubusercontent.com/6290720/86210977-864c3180-bbb0-11ea-8319-c0d112fb720e.png">
+
 
 ### Login screen
 
