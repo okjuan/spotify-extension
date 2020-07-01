@@ -19,15 +19,17 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 ## How it looks like?
 
-![spotify-extension](https://user-images.githubusercontent.com/6290720/85205217-e17e5880-b354-11ea-8b25-bf3f02dfbb71.gif)
+![spotify-extension](https://user-images.githubusercontent.com/6290720/86245015-cbd62200-bbe3-11ea-9cbd-d4437005c8f5.gif)
 
 ### Main screens
 
-<img width="400" alt="Screen Shot 2020-06-21 at 0 20 46" src="https://user-images.githubusercontent.com/6290720/85205249-1d192280-b355-11ea-9c29-f28f9bb6bcbf.png">
+<img width="409" alt="Screen Shot 2020-07-01 at 15 31 12" src="https://user-images.githubusercontent.com/6290720/86210759-1c338c80-bbb0-11ea-96c6-b0f781e5df15.png">
 
-<img width="402" alt="Screen Shot 2020-06-21 at 0 20 57" src="https://user-images.githubusercontent.com/6290720/85205252-2b673e80-b355-11ea-97fd-1ccb1cbdcd3a.png">
+<img width="406" alt="Screen Shot 2020-07-01 at 15 33 13" src="https://user-images.githubusercontent.com/6290720/86210952-77fe1580-bbb0-11ea-9c67-34d53bfb3b4b.png">
 
-<img width="403" alt="Screen Shot 2020-06-21 at 0 21 05" src="https://user-images.githubusercontent.com/6290720/85205254-2e622f00-b355-11ea-8725-1860338c911b.png">
+<img width="410" alt="Screen Shot 2020-07-01 at 15 31 40" src="https://user-images.githubusercontent.com/6290720/86210974-83e9d780-bbb0-11ea-8fcb-2d69a4ab6895.png">
+
+<img width="411" alt="Screen Shot 2020-07-01 at 15 31 25" src="https://user-images.githubusercontent.com/6290720/86210977-864c3180-bbb0-11ea-8319-c0d112fb720e.png">
 
 ### Login screen
 
@@ -77,6 +79,12 @@ npm i
 npm run dev-chrome
 ```
 
+**Edge**
+
+```bash
+npm run dev-edge
+```
+
 **Firefox**
 
 ```bash
@@ -95,6 +103,12 @@ npm i
 npm run chrome
 ```
 
+**Edge**
+
+```bash
+npm run edge
+```
+
 **Firefox**
 
 ```bash
@@ -106,7 +120,7 @@ npm run firefox
 1. On the browser's URL address bar
 2. Enter `chrome://extensions/`
 3. Switch to "**Developer mode**"
-4. Load "**Load unpacked**"
+4. Load extension by clicking "**Load unpacked**"
 5. Browse to `dist/` in source code
 6. Done!
 
@@ -121,3 +135,12 @@ Check here for more detail: [https://developer.chrome.com/extensions/getstarted]
 5. Done!
 
 Check here for more detail: [https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+
+## Load package to Edge
+
+1. On the browser's URL address bar
+2. Enter `edge://extensions/`
+3. Turn on `Developer mode`
+4. Load extension by clicking "**Load unpacked**"
+5. Browse to `dist/` in source code
+6. Done!
