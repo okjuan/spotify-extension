@@ -19,7 +19,7 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 ## How it looks like?
 
-![spotify-extension](https://user-images.githubusercontent.com/6290720/85205217-e17e5880-b354-11ea-8b25-bf3f02dfbb71.gif)
+![spotify-extension](https://user-images.githubusercontent.com/6290720/86245015-cbd62200-bbe3-11ea-9cbd-d4437005c8f5.gif)
 
 ### Main screens
 
@@ -30,7 +30,6 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 <img width="410" alt="Screen Shot 2020-07-01 at 15 31 40" src="https://user-images.githubusercontent.com/6290720/86210974-83e9d780-bbb0-11ea-8fcb-2d69a4ab6895.png">
 
 <img width="411" alt="Screen Shot 2020-07-01 at 15 31 25" src="https://user-images.githubusercontent.com/6290720/86210977-864c3180-bbb0-11ea-8319-c0d112fb720e.png">
-
 
 ### Login screen
 
@@ -80,6 +79,12 @@ npm i
 npm run dev-chrome
 ```
 
+**Edge**
+
+```bash
+npm run dev-edge
+```
+
 **Firefox**
 
 ```bash
@@ -98,6 +103,12 @@ npm i
 npm run chrome
 ```
 
+**Edge**
+
+```bash
+npm run edge
+```
+
 **Firefox**
 
 ```bash
@@ -109,7 +120,7 @@ npm run firefox
 1. On the browser's URL address bar
 2. Enter `chrome://extensions/`
 3. Switch to "**Developer mode**"
-4. Load "**Load unpacked**"
+4. Load extension by clicking "**Load unpacked**"
 5. Browse to `dist/` in source code
 6. Done!
 
@@ -124,3 +135,12 @@ Check here for more detail: [https://developer.chrome.com/extensions/getstarted]
 5. Done!
 
 Check here for more detail: [https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+
+## Load package to Edge
+
+1. On the browser's URL address bar
+2. Enter `edge://extensions/`
+3. Turn on `Developer mode`
+4. Load extension by clicking "**Load unpacked**"
+5. Browse to `dist/` in source code
+6. Done!
