@@ -17,6 +17,14 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 - Avoid switching context while you're focusing on your browser by providing mini player which helps to control Spotify with ease from your browser.
 - Quick right click to search song by name on Spotify site.
 
+## Stores
+
+|Browsers| Web store |
+|--|--|
+| Chrome | [https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa](https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa) |
+| Microsoft Edge | [https://microsoftedge.microsoft.com/addons/detail/spotify-player/odplfjpibjdajlmaocmfmlcdidldlmnk](https://microsoftedge.microsoft.com/addons/detail/spotify-player/odplfjpibjdajlmaocmfmlcdidldlmnk) |
+| Firefox | [https://addons.mozilla.org/en-US/firefox/addon/spotify-player](https://addons.mozilla.org/en-US/firefox/addon/spotify-player) |
+
 ## How it looks like?
 
 ![spotify-extension](https://user-images.githubusercontent.com/6290720/86245015-cbd62200-bbe3-11ea-9cbd-d4437005c8f5.gif)
@@ -56,16 +64,6 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 Search song by name with Chrome's context menu
 
 <img width="487" alt="Screen Shot 2020-05-21 at 23 45 34" src="https://user-images.githubusercontent.com/6290720/82570946-3cd5f300-9bbd-11ea-98d0-c15dda420c2b.png">
-
-## Stores
-
-**Chrome**
-
-[https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa](https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa)
-
-**Firefox**
-
-[https://addons.mozilla.org/en-US/firefox/addon/spotify-player/](https://addons.mozilla.org/en-US/firefox/addon/spotify-player/)
 
 ## Development
 
@@ -126,6 +124,15 @@ npm run firefox
 
 Check here for more detail: [https://developer.chrome.com/extensions/getstarted](https://developer.chrome.com/extensions/getstarted)
 
+## Load package to Edge
+
+1. On the browser's URL address bar
+2. Enter `edge://extensions/`
+3. Turn on `Developer mode`
+4. Load extension by clicking "**Load unpacked**"
+5. Browse to `dist/` in source code
+6. Done!
+
 ## Load package to Firefox
 
 1. On the browser's URL address bar
@@ -135,12 +142,3 @@ Check here for more detail: [https://developer.chrome.com/extensions/getstarted]
 5. Done!
 
 Check here for more detail: [https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
-
-## Load package to Edge
-
-1. On the browser's URL address bar
-2. Enter `edge://extensions/`
-3. Turn on `Developer mode`
-4. Load extension by clicking "**Load unpacked**"
-5. Browse to `dist/` in source code
-6. Done!
