@@ -19,25 +19,25 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 ## Stores
 
-|Browsers| Web store |
-|--|--|
-| Chrome | [https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa](https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa) |
+| Browsers       | Web store                                                                                                                                                                                              |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Chrome         | [https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa](https://chrome.google.com/webstore/detail/mini-spotity-player/bhdjjppbnlpjpeicimhemencfgjeldoa)       |
 | Microsoft Edge | [https://microsoftedge.microsoft.com/addons/detail/spotify-player/odplfjpibjdajlmaocmfmlcdidldlmnk](https://microsoftedge.microsoft.com/addons/detail/spotify-player/odplfjpibjdajlmaocmfmlcdidldlmnk) |
-| Firefox | [https://addons.mozilla.org/en-US/firefox/addon/spotify-player](https://addons.mozilla.org/en-US/firefox/addon/spotify-player) |
+| Firefox        | [https://addons.mozilla.org/en-US/firefox/addon/spotify-player](https://addons.mozilla.org/en-US/firefox/addon/spotify-player)                                                                         |
 
 ## How it looks like?
 
-![spotify-extension](https://user-images.githubusercontent.com/6290720/86245015-cbd62200-bbe3-11ea-9cbd-d4437005c8f5.gif)
+![spotify-extension-1-10](https://user-images.githubusercontent.com/6290720/86778080-e8b39f00-c094-11ea-9763-1b0e23a98ff5.gif)
 
 ### Main screens
 
-<img width="409" alt="Screen Shot 2020-07-01 at 15 31 12" src="https://user-images.githubusercontent.com/6290720/86210759-1c338c80-bbb0-11ea-96c6-b0f781e5df15.png">
+<img width="409" alt="Screen Shot 2020-07-07 at 20 54 32" src="https://user-images.githubusercontent.com/6290720/86777977-cae63a00-c094-11ea-8bb0-af545c75ef9b.png">
 
-<img width="406" alt="Screen Shot 2020-07-01 at 15 33 13" src="https://user-images.githubusercontent.com/6290720/86210952-77fe1580-bbb0-11ea-9c67-34d53bfb3b4b.png">
+<img width="411" alt="Screen Shot 2020-07-07 at 20 55 03" src="https://user-images.githubusercontent.com/6290720/86777989-ce79c100-c094-11ea-89c5-21a3e8cb5321.png">
 
-<img width="410" alt="Screen Shot 2020-07-01 at 15 31 40" src="https://user-images.githubusercontent.com/6290720/86210974-83e9d780-bbb0-11ea-8fcb-2d69a4ab6895.png">
+<img width="408" alt="Screen Shot 2020-07-07 at 20 55 17" src="https://user-images.githubusercontent.com/6290720/86777990-cf125780-c094-11ea-91cb-c90ce23bc787.png">
 
-<img width="411" alt="Screen Shot 2020-07-01 at 15 31 25" src="https://user-images.githubusercontent.com/6290720/86210977-864c3180-bbb0-11ea-8319-c0d112fb720e.png">
+<img width="409" alt="Screen Shot 2020-07-07 at 20 56 21" src="https://user-images.githubusercontent.com/6290720/86777993-cfaaee00-c094-11ea-9204-15793ed3e986.png">
 
 ### Login screen
 
