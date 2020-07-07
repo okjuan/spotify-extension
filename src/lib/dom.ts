@@ -33,6 +33,8 @@ export function displayTrackInfo(playback: TrackInfo) {
     songTitle.setAttribute('title', title);
     songTitle.setAttribute('href', trackUrl);
     songTitle.setAttribute('target', '_blank');
+    songTitle.style.textDecoration = 'none';
+    songTitle.style.fontWeight = 'bold';
   }
 
   if (artist) {
@@ -40,6 +42,8 @@ export function displayTrackInfo(playback: TrackInfo) {
     artistName.setAttribute('title', artist.name);
     artistName.setAttribute('href', artist.url);
     artistName.setAttribute('target', '_blank');
+    artistName.style.textDecoration = 'none';
+    artistName.style.fontStyle = 'italic';
   }
 
   if (coverPhoto) {
