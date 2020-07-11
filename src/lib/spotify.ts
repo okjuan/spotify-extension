@@ -114,21 +114,9 @@ export async function pause(deviceId: string, accessToken: string) {
 export async function play(songInfo: TrackInfo, deviceId: string, accessToken: string) {
   const url = `${END_POINT}/v1/me/player/play?device_id=${deviceId}`;
 
-  let postData: PlayPostData = {
-    uris: [songInfo.uri],
-    position_ms: songInfo.progressMs,
+  const postData: PlayPostData = {
+    position_ms: songInfo.progressMs, // the time that current plays
   };
-
-  // If the song is being played in album, playlist, ...
-  if (songInfo.context) {
-    postData = {
-      position_ms: songInfo.progressMs, // the time that current plays
-      context_uri: songInfo.context.uri, // current album, playlist, ...
-      offset: {
-        uri: songInfo.uri, // which song in album, playlist need to resume
-      },
-    };
-  }
 
   try {
     return await fetch(url, {
