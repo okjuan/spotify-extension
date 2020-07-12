@@ -1,13 +1,8 @@
 {
   "name": "Spotify Player",
-  "version": "1.10",
+  "version": "1.11",
   "description": "Spotify Player Microsoft Edge's extension",
-  "permissions": [
-    "contextMenus",
-    "declarativeContent",
-    "http://*/*",
-    "https://*/*"
-  ],
+  "permissions": ["contextMenus", "declarativeContent", "http://*/*", "https://*/*"],
   "manifest_version": 2,
   "background": {
     "page": "background.html",
