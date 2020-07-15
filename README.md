@@ -1,7 +1,4 @@
 # Spotify Chrome Extension
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/6290720/82152014-98407200-9899-11ea-9a63-ba6b42aa2c34.png" />
@@ -10,6 +7,12 @@
 </div>
 
 Spotify mini player Chrome's exntesion
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![codecov](https://codecov.io/gh/davidnguyen179/spotify-extension/branch/master/graph/badge.svg)](https://codecov.io/gh/davidnguyen179/spotify-extension) [![Build Status](https://travis-ci.com/davidnguyen179/spotify-extension.svg?branch=master)](https://travis-ci.com/davidnguyen179/spotify-extension)
 
@@ -162,6 +165,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
+
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
