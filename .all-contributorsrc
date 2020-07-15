@@ -1,0 +1,34 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "davidnguyen179",
+      "name": "David Nguyen",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/6290720?v=4",
+      "profile": "https://www.dzungnguyen.dev",
+      "contributions": [
+        "code",
+        "test",
+        "doc",
+        "design",
+        "content",
+        "maintenance",
+        "bug",
+        "ideas",
+        "platform",
+        "review",
+        "userTesting"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "spotify-extension",
+  "projectOwner": "davidnguyen179",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
