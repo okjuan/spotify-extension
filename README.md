@@ -1,4 +1,7 @@
 # Spotify Chrome Extension
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/6290720/82152014-98407200-9899-11ea-9a63-ba6b42aa2c34.png" />
@@ -142,3 +145,22 @@ Check here for more detail: [https://developer.chrome.com/extensions/getstarted]
 5. Done!
 
 Check here for more detail: [https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/](https://extensionworkshop.com/documentation/develop/temporary-installation-in-firefox/)
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://benlee3.com"><img src="https://avatars2.githubusercontent.com/u/35267414?v=4" width="100px;" alt=""/><br /><sub><b>Ben Harned</b></sub></a><br /><a href="https://github.com/davidnguyen179/spotify-extension/commits?author=3BenLee" title="Code">💻</a> <a href="https://github.com/davidnguyen179/spotify-extension/commits?author=3BenLee" title="Tests">⚠️</a> <a href="https://github.com/davidnguyen179/spotify-extension/commits?author=3BenLee" title="Documentation">📖</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
