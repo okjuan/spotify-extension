@@ -6,7 +6,9 @@
   <br />
 </div>
 
-Spotify mini player Chrome's exntesion
+Spotify mini player Chrome's exntesion, check out the story here
+
+[https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension](https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
