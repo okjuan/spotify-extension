@@ -1,4 +1,4 @@
-import { sandbox, useFakeTimers } from 'sinon';
+import sinon from 'sinon';
 import { shouldUpdateCache, updateTrackCache, updateTrackInfo } from '../lib/utils';
 import { Storage } from '../lib/storage';
 import { cachedTrack } from './fixtures/playback';
@@ -9,7 +9,7 @@ describe('Testing utils', () => {
   let setFunc;
 
   beforeEach(() => {
-    sandboxes = sandbox.create();
+    sandboxes = sinon.createSandbox();
     getFunc = sandboxes.stub(Storage, 'get');
     setFunc = sandboxes.stub(Storage, 'set');
   });

@@ -13,7 +13,6 @@ module.exports = {
   coveragePathIgnorePatterns: [...ignores, 'src/(umd|cjs|esm)-entry.js$'],
   transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|jsx)$'],
   coverageDirectory: './coverage',
-  collectCoverage: true,
   coverageThreshold: {
     global: {
       branches: 80,

@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { sandbox, useFakeTimers } from 'sinon';
+import sinon, { useFakeTimers } from 'sinon';
 import { Storage } from '../lib/storage';
 import { App } from '../lib/app';
 import { token, nonLoginToken } from './fixtures/token';
@@ -33,7 +33,7 @@ describe('Testing App', () => {
   let shouldUpdateCache;
 
   beforeEach(() => {
-    sandboxes = sandbox.create();
+    sandboxes = sinon.createSandbox();
     getFunc = sandboxes.stub(Storage, 'get');
     setFunc = sandboxes.stub(Storage, 'set');
     getAccessToken = sandboxes.stub(Spotify, 'getAccessToken');
