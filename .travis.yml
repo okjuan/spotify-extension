@@ -6,7 +6,7 @@ cache:
 node_js: '10'
 install: npm install
 script:
-  - npm test
+  - npm test -- --coverage
 after_script:
   - bash <(curl -s https://codecov.io/bash)
 branches:
