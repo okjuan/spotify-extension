@@ -41,6 +41,7 @@
     "@types/sinon": "^9.0.5",
     "babel-jest": "^26.0.1",
     "copy-webpack-plugin": "^6.0.1",
+    "git-hooks-plus": "^1.0.1",
     "html-webpack-plugin": "^4.3.0",
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
