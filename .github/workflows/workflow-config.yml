@@ -5,7 +5,7 @@ on: [push]
 jobs:
   test:
     # Job name
-    name: Jest test
+    name: test
     # This job runs on Linux
     runs-on: ubuntu-latest
     strategy:
@@ -35,4 +35,3 @@ jobs:
         run: npm test -- --coverage
       - name: Trigger Codecov
         run: bash <(curl -s https://codecov.io/bash)
-
