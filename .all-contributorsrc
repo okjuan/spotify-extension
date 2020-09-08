@@ -45,6 +45,16 @@
         "infra",
         "doc"
       ]
+    },
+    {
+      "login": "immint023",
+      "name": "immint023",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/38607460?v=4",
+      "profile": "https://github.com/immint023",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
