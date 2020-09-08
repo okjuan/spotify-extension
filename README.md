@@ -16,7 +16,7 @@ Spotify mini player Chrome's exntesion, check out the story here
 
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-[![codecov](https://codecov.io/gh/davidnguyen179/spotify-extension/branch/master/graph/badge.svg)](https://codecov.io/gh/davidnguyen179/spotify-extension) ![Github_Actions](https://github.com/davidnguyen179/spotify-extension/workflows/CI/badge.svg)
+[![codecov](https://codecov.io/gh/davidnguyen179/spotify-extension/branch/master/graph/badge.svg)](https://codecov.io/gh/davidnguyen179/spotify-extension) ![ci/cd](https://github.com/davidnguyen179/spotify-extension/workflows/ci/cd/badge.svg)
 
 ## Motivation
 
