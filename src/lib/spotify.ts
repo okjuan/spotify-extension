@@ -162,39 +162,6 @@ export async function prev(deviceId: string, accessToken: string) {
   }
 }
 
-export async function shuffle(state: boolean, deviceId: string, accessToken: string) {
-  const url = `${END_POINT}/v1/me/player/shuffle?state=${state}&device_id=${deviceId}`;
-
-  try {
-    return await fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
-}
-
-/**
- * https://developer.spotify.com/documentation/web-api/reference/player/set-repeat-mode-on-users-playback/
- */
-export async function repeat(state: 'track' | 'context' | 'off', deviceId: string, accessToken: string) {
-  const url = `${END_POINT}/v1/me/player/repeat?state=${state}&device_id=${deviceId}`;
-
-  try {
-    return await fetch(url, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  } catch (e) {
-    throw e;
-  }
-}
-
 export async function checkSavedTrack(accessToken: string, ids: string) {
   const url = `${END_POINT}/v1/me/tracks/contains?ids=${ids}`;
 
