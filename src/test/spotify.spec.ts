@@ -7,8 +7,6 @@ import {
   play,
   prev,
   next,
-  repeat,
-  shuffle,
   saveTrack,
   removeTrack,
   checkSavedTrack,
@@ -151,36 +149,6 @@ describe('testing Spotify class', () => {
     window.fetch = mockFetchReject();
     try {
       await prev(device.id, token.accessToken);
-    } catch (e) {
-      expect(e.ok).toBeFalsy();
-    }
-  });
-
-  it('should run shuffle', async () => {
-    window.fetch = mockFetchResolve();
-    const { ok } = await shuffle(true, device.id, token.accessToken);
-    expect(ok).toBeTruthy();
-  });
-
-  it('should not run shuffle', async () => {
-    window.fetch = mockFetchReject();
-    try {
-      await shuffle(true, device.id, token.accessToken);
-    } catch (e) {
-      expect(e.ok).toBeFalsy();
-    }
-  });
-
-  it('should run repeat', async () => {
-    window.fetch = mockFetchResolve();
-    const { ok } = await repeat('track', device.id, token.accessToken);
-    expect(ok).toBeTruthy();
-  });
-
-  it('should not run repeat', async () => {
-    window.fetch = mockFetchReject();
-    try {
-      await repeat('track', device.id, token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }

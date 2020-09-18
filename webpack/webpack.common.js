@@ -35,7 +35,6 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: './icons', to: '../icons', context: 'public' },
         { from: './images', to: '../images', context: 'public' },
         { from: './background.html', to: '../background.html', context: 'public' },
         { from: './popup.html', to: '../popup.html', context: 'public' },
