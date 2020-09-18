@@ -1,3 +1,4 @@
+/// <reference types="chrome"/>
 import { CONTEXT_MENU_ITEM, WEB_PLAYER_URL } from '../../lib/constants';
 
 chrome.runtime.onInstalled.addListener(function () {

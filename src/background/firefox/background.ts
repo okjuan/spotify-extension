@@ -1,3 +1,4 @@
+/// <reference types="web-ext-types"/>
 import { CONTEXT_MENU_ITEM, WEB_PLAYER_URL } from '../../lib/constants';
 
 browser.menus.create({
