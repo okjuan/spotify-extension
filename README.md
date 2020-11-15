@@ -1,4 +1,4 @@
-# Spotify Chrome Extension
+# Spotify Web Extension
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/6290720/82152014-98407200-9899-11ea-9a63-ba6b42aa2c34.png" />
@@ -6,11 +6,13 @@
   <br />
 </div>
 
-Spotify mini player Chrome's exntesion, check out the story here
+Spotify web exntesion, check out the story here:
 
-[https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension](https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension)
+- [https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension](https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension)
 
-Checkout documentation page here: [https://spotify-extension.netlify.app/](https://spotify-extension.netlify.app/)
+And official website here:
+
+- [https://spotify-extension.netlify.app/](https://spotify-extension.netlify.app/)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
