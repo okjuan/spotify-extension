@@ -10,9 +10,7 @@ Spotify web exntesion, check out the story here:
 
 - [https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension](https://www.dzungnguyen.dev/blog/develop-spotify-player-web-extension)
 
-And official website here:
-
-- [https://spotify-extension.netlify.app/](https://spotify-extension.netlify.app/)
+**Note:** This web extension was developed using [web-extension-boilerplate](https://github.com/davidnguyen179/web-extension-boilerplate)
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 
