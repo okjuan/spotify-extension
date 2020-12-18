@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { shouldUpdateCache, updateTrackCache, updateTrackInfo } from '../lib/utils';
+import { shouldUpdateCache, updateTrackCache, updateTrackInfo, isChristmasPeriod } from '../lib/utils';
 import { Storage } from '../lib/storage';
 import { cachedTrack } from './fixtures/playback';
 
@@ -7,6 +7,7 @@ describe('Testing utils', () => {
   let sandboxes;
   let getFunc;
   let setFunc;
+  let now;
 
   beforeEach(() => {
     sandboxes = sinon.createSandbox();
@@ -75,6 +76,32 @@ describe('Testing utils', () => {
       const currentTrack = { ...cachedTrack, progressMs: 0 };
       const result = shouldUpdateCache(prevTrack, currentTrack);
       expect(result).toBeTruthy();
+    });
+  });
+
+  describe('isChristmasPeriod', () => {
+    it('should return true - Dec 06', () => {
+      now = sandboxes.useFakeTimers({
+        now: new Date(2020, 11, 6, 23, 0),
+      });
+      const actual = isChristmasPeriod();
+      expect(actual).toBeTruthy();
+    });
+
+    it('should return true - Jan 06', () => {
+      now = sandboxes.useFakeTimers({
+        now: new Date(2020, 0, 6, 23, 0),
+      });
+      const actual = isChristmasPeriod();
+      expect(actual).toBeTruthy();
+    });
+
+    it('should return false - March 06', () => {
+      now = sandboxes.useFakeTimers({
+        now: new Date(2020, 2, 6, 23, 0),
+      });
+      const actual = isChristmasPeriod();
+      expect(actual).toBeFalsy();
     });
   });
 });

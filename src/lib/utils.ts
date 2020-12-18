@@ -26,3 +26,10 @@ export function updateTrackCache(value: TrackInfo) {
 export function updateTrackInfo<K1 extends keyof TrackInfo>(track, key: K1, value: TrackInfo[K1]) {
   track[key] = value;
 }
+
+export function isChristmasPeriod() {
+  const nowDate = new Date();
+  const isMidDecember = nowDate.getMonth() === 11 && nowDate.getDate() > 5;
+  const isStartJanuary = nowDate.getMonth() === 0 && nowDate.getDate() <= 6;
+  return isMidDecember || isStartJanuary;
+}
