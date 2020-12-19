@@ -53,6 +53,8 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 <img width="409" alt="Screen Shot 2020-07-07 at 20 56 21" src="https://user-images.githubusercontent.com/6290720/86777993-cfaaee00-c094-11ea-9204-15793ed3e986.png">
 
+<img width="406" alt="Screen Shot 2020-12-19 at 15 50 08" src="https://user-images.githubusercontent.com/6290720/102683112-f491b880-4211-11eb-9e78-b348a0fd0d1c.png">
+
 ### Login screen
 
 **dark**
