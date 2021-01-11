@@ -1,6 +1,6 @@
 {
   "name": "Spotify Player",
-  "version": "1.13",
+  "version": "1.14",
   "description": "Spotify Player Chrome's extension",
   "permissions": [
     "contextMenus",
