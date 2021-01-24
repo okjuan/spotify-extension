@@ -11,6 +11,7 @@
     "chrome": "rimraf dist && env BROWSER='chrome' webpack --config webpack/webpack.prod.js",
     "firefox": "rimraf dist && env BROWSER='firefox' webpack --config webpack/webpack.prod.js",
     "edge": "rimraf dist && env BROWSER='edge' webpack --config webpack/webpack.prod.js",
+    "typecheck": "./node_modules/.bin/tsc --noEmit",
     "test": "jest"
   },
   "repository": {
