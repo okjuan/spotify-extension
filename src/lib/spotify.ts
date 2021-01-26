@@ -1,4 +1,4 @@
-import { Token, PlayPostData, Device, TrackInfo } from './interface';
+import { Token, PlayPostData, Device, TrackInfo, RepeatMode } from './interface';
 import { WEB_PLAYER_URL, END_POINT, VALID_DEVICE_TYPES } from './constants';
 
 export async function getDevices(accessToken: string) {
@@ -66,6 +66,7 @@ export async function getCurrentPlayBack(accessToken: string) {
     });
 
     const data = await res.json();
+    console.log('data', data);
     return data;
   } catch (e) {
     return;
@@ -210,6 +211,21 @@ export async function removeTrack(songInfo: TrackInfo, accessToken: string) {
     return await fetch(url, {
       method: 'DELETE',
       body: JSON.stringify(postData),
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  } catch (e) {
+    throw e;
+  }
+}
+
+export async function repeat(mode: RepeatMode, accessToken: string) {
+  const url = `${END_POINT}/v1/me/player/repeat?state=${mode}`;
+
+  try {
+    return await fetch(url, {
+      method: 'PUT',
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

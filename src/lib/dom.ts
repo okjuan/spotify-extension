@@ -1,4 +1,4 @@
-import { TrackInfo, Token, Device } from './interface';
+import { TrackInfo, Token, Device, RepeatMode } from './interface';
 import {
   pause as pauseTrack,
   next as nextTrack,
@@ -6,6 +6,7 @@ import {
   play as playTrack,
   saveTrack,
   removeTrack,
+  repeat,
 } from './spotify';
 import ColorThief from 'colorthief';
 import { updateTrackCache, updateTrackInfo } from './utils';
@@ -24,6 +25,8 @@ export function displayTrackInfo(playback: TrackInfo) {
   const playIcon = document.getElementById('play-icon');
   const pauseIcon = document.getElementById('pause-icon');
   const nextIcon = document.getElementById('next-icon');
+  const repeatIcon = document.getElementById('repeat-icon');
+  const repeatOneLabel = document.getElementById('repeat-one');
   const divider = document.getElementById('divider');
 
   const { title, artist, coverPhoto, trackUrl } = playback;
@@ -71,6 +74,9 @@ export function displayTrackInfo(playback: TrackInfo) {
       playIcon.style.fill = textRGB;
       pauseIcon.style.fill = textRGB;
       nextIcon.style.fill = textRGB;
+      repeatIcon.style.fill = textRGB;
+      repeatOneLabel.style.backgroundColor = textRGB;
+      repeatOneLabel.style.color = bgRGB;
       infoBox.style.backgroundColor = bgRGB;
       infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
       divider.style.backgroundColor = textRGB;
@@ -87,6 +93,9 @@ export function displayTrackInfo(playback: TrackInfo) {
         playIcon.style.fill = textRGB;
         pauseIcon.style.fill = textRGB;
         nextIcon.style.fill = textRGB;
+        repeatIcon.style.fill = textRGB;
+        repeatOneLabel.style.backgroundColor = textRGB;
+        repeatOneLabel.style.color = bgRGB;
         infoBox.style.backgroundColor = bgRGB;
         infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
         divider.style.backgroundColor = textRGB;
@@ -94,6 +103,8 @@ export function displayTrackInfo(playback: TrackInfo) {
       });
     }
   }
+
+  renderRepeatBadge(playback);
 }
 
 function renderSaveButton(playback: TrackInfo, color) {
@@ -115,6 +126,19 @@ function renderSaveButton(playback: TrackInfo, color) {
       save.style.display = 'none';
       unSave.style.display = 'flex';
       unSaveIcon.style.fill = color;
+      break;
+  }
+}
+
+function renderRepeatBadge(playback: TrackInfo) {
+  const repeatOneLabel = document.getElementById('repeat-one');
+
+  switch (playback.repeatState) {
+    case 'track':
+      repeatOneLabel.style.display = 'block';
+      break;
+    default:
+      repeatOneLabel.style.display = 'none';
       break;
   }
 }
@@ -236,6 +260,7 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
   const btnNext = document.getElementById('next');
   const btnSave = document.getElementById('save');
   const btnUnSave = document.getElementById('un-save');
+  const btnRepeat = document.getElementById('repeat');
 
   document.addEventListener('keydown', async (e) => {
     e.preventDefault();
@@ -288,6 +313,17 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
       await removeTrack(playback, token.accessToken);
       render();
     }
+  };
+
+  btnRepeat.onclick = async function (e) {
+    e.preventDefault();
+    let mode: RepeatMode = 'off';
+
+    if (playback.repeatState === 'off') {
+      mode = 'track';
+    }
+    await repeat(mode, token.accessToken);
+    render();
   };
 
   async function pause() {

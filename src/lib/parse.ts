@@ -6,6 +6,7 @@ export function parse(rawData): TrackInfo {
   const {
     is_playing: isPlaying,
     progress_ms: progressMs,
+    repeat_state: repeatState,
     item: {
       name: title,
       artists,
@@ -44,6 +45,7 @@ export function parse(rawData): TrackInfo {
       name: artistName,
       url: artistUrl,
     },
+    repeatState,
     isPlaying,
     coverPhoto,
     uri,
