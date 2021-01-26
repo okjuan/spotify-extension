@@ -10,11 +10,11 @@ import {
   saveTrack,
   removeTrack,
   checkSavedTrack,
+  repeat,
 } from '../lib/spotify';
 import { parse } from '../lib/parse';
 import { playback } from './fixtures/playback';
 import { devices } from './fixtures/devices';
-import { token } from './fixtures/token';
 import { rawData } from './fixtures/response';
 import { recentlyPlayedTrack } from './fixtures/recently-played';
 import { Token, Device } from '../lib/interface';
@@ -248,6 +248,27 @@ describe('testing Spotify class', () => {
     try {
       const songInfo = parse(rawData);
       await removeTrack(songInfo, token.accessToken);
+    } catch (e) {
+      expect(e.ok).toBeFalsy();
+    }
+  });
+
+  it('should turn off repeat mode', async () => {
+    window.fetch = mockFetchResolve();
+    const result = await repeat('off', token.accessToken);
+    expect(result.ok).toBeTruthy();
+  });
+
+  it('should turn on repeat mode', async () => {
+    window.fetch = mockFetchResolve();
+    const result = await repeat('track', token.accessToken);
+    expect(result.ok).toBeTruthy();
+  });
+
+  it('should throw exception when turning on repeat mode', async () => {
+    window.fetch = mockFetchReject();
+    try {
+      await repeat('track', token.accessToken);
     } catch (e) {
       expect(e.ok).toBeFalsy();
     }

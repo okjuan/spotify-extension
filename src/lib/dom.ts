@@ -15,6 +15,7 @@ const LIMIT = 128;
 const BOX_SHADOW = '10px 0px 20px 15px';
 const DEFAULT_DARK_PALETTE = [31, 64, 104];
 const DEFAULT_LIGHT_PALETTE = [244, 244, 244];
+const TIME_OUT = 200;
 
 export function displayTrackInfo(playback: TrackInfo) {
   const songTitle = document.getElementById('title');
@@ -26,7 +27,8 @@ export function displayTrackInfo(playback: TrackInfo) {
   const pauseIcon = document.getElementById('pause-icon');
   const nextIcon = document.getElementById('next-icon');
   const repeatIcon = document.getElementById('repeat-icon');
-  const repeatOneLabel = document.getElementById('repeat-one');
+  const repeatContext = document.getElementById('repeat-context');
+  const repeatOne = document.getElementById('repeat-one');
   const divider = document.getElementById('divider');
 
   const { title, artist, coverPhoto, trackUrl } = playback;
@@ -75,8 +77,9 @@ export function displayTrackInfo(playback: TrackInfo) {
       pauseIcon.style.fill = textRGB;
       nextIcon.style.fill = textRGB;
       repeatIcon.style.fill = textRGB;
-      repeatOneLabel.style.backgroundColor = textRGB;
-      repeatOneLabel.style.color = bgRGB;
+      repeatOne.style.backgroundColor = textRGB;
+      repeatOne.style.color = bgRGB;
+      repeatContext.style.backgroundColor = textRGB;
       infoBox.style.backgroundColor = bgRGB;
       infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
       divider.style.backgroundColor = textRGB;
@@ -94,8 +97,9 @@ export function displayTrackInfo(playback: TrackInfo) {
         pauseIcon.style.fill = textRGB;
         nextIcon.style.fill = textRGB;
         repeatIcon.style.fill = textRGB;
-        repeatOneLabel.style.backgroundColor = textRGB;
-        repeatOneLabel.style.color = bgRGB;
+        repeatOne.style.backgroundColor = textRGB;
+        repeatOne.style.color = bgRGB;
+        repeatContext.style.backgroundColor = textRGB;
         infoBox.style.backgroundColor = bgRGB;
         infoBox.style.boxShadow = `${BOX_SHADOW} ${bgRGB}`;
         divider.style.backgroundColor = textRGB;
@@ -131,14 +135,21 @@ function renderSaveButton(playback: TrackInfo, color) {
 }
 
 function renderRepeatBadge(playback: TrackInfo) {
-  const repeatOneLabel = document.getElementById('repeat-one');
+  const repeatContext = document.getElementById('repeat-context');
+  const repeatOne = document.getElementById('repeat-one');
 
   switch (playback.repeatState) {
     case 'track':
-      repeatOneLabel.style.display = 'block';
+      repeatContext.style.display = 'none';
+      repeatOne.style.display = 'flex';
+      break;
+    case 'context':
+      repeatContext.style.display = 'flex';
+      repeatOne.style.display = 'none';
       break;
     default:
-      repeatOneLabel.style.display = 'none';
+      repeatContext.style.display = 'none';
+      repeatOne.style.display = 'none';
       break;
   }
 }
@@ -253,7 +264,7 @@ export function displayBox(mode: BoxType) {
   }
 }
 
-export function registerEvents(token: Token, device: Device, playback: TrackInfo, render: () => void) {
+export function registerEvents(token: Token, device: Device, playback: TrackInfo, render: () => Promise<void>) {
   const btnPrev = document.getElementById('prev');
   const btnPause = document.getElementById('pause');
   const btnPlay = document.getElementById('play');
@@ -287,14 +298,18 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
     e.preventDefault();
     await prevTrack(device.id, token.accessToken);
     // after click next song, call API again to update UI
-    render();
+    setTimeout(async () => {
+      await render();
+    }, TIME_OUT);
   };
 
   btnNext.onclick = async function (e) {
     e.preventDefault();
     await nextTrack(device.id, token.accessToken);
     // after click next song, call API again to update UI
-    render();
+    setTimeout(async () => {
+      await render();
+    }, TIME_OUT);
   };
 
   btnSave.onclick = async function (e) {
@@ -302,7 +317,7 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
     if (!playback.isSave) {
       // add track to saved list
       await saveTrack(playback, token.accessToken);
-      render();
+      await render();
     }
   };
 
@@ -311,19 +326,26 @@ export function registerEvents(token: Token, device: Device, playback: TrackInfo
     if (playback.isSave) {
       // remove track from saved list
       await removeTrack(playback, token.accessToken);
-      render();
+      await render();
     }
   };
 
   btnRepeat.onclick = async function (e) {
-    e.preventDefault();
     let mode: RepeatMode = 'off';
 
-    if (playback.repeatState === 'off') {
-      mode = 'track';
+    switch (playback.repeatState) {
+      case 'off':
+        mode = 'context';
+        break;
+      case 'context':
+        mode = 'track';
+        break;
+      default:
+        break;
     }
+
     await repeat(mode, token.accessToken);
-    render();
+    await render();
   };
 
   async function pause() {

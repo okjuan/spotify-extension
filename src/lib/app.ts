@@ -153,8 +153,8 @@ export class App {
     const durationMs = this.track.durationMs;
     const progressMs = this.track.progressMs || 0;
 
-    const timer = setTimeout(() => {
-      this.displayPlayerBox();
+    const timer = setTimeout(async () => {
+      await this.displayPlayerBox();
       clearTimeout(timer);
     }, durationMs - progressMs);
   }

@@ -56,4 +56,4 @@ export interface PlayPostData {
 
 export type PlayerState = 'nothing' | 'no-song-playing' | 'cache';
 
-export type RepeatMode = 'track' | 'off';
+export type RepeatMode = 'track' | 'context' | 'off';
