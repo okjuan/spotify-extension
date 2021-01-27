@@ -140,7 +140,7 @@ function renderRepeatBadge(playback: TrackInfo) {
 
   switch (playback.repeatState) {
     case 'track':
-      repeatContext.style.display = 'none';
+      repeatContext.style.display = 'flex';
       repeatOne.style.display = 'flex';
       break;
     case 'context':
