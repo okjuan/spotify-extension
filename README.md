@@ -41,19 +41,19 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 ## How it looks like?
 
-![spotify-extension-1-10](https://user-images.githubusercontent.com/6290720/86778080-e8b39f00-c094-11ea-9763-1b0e23a98ff5.gif)
+![spotify-extension-demo](https://user-images.githubusercontent.com/6290720/105953233-2ec66380-60b6-11eb-805c-bca5aeaa151f.gif)
 
 ### Main screens
 
-<img width="409" alt="Screen Shot 2020-07-07 at 20 54 32" src="https://user-images.githubusercontent.com/6290720/86777977-cae63a00-c094-11ea-8bb0-af545c75ef9b.png">
+<img width="413" alt="coming-home" src="https://user-images.githubusercontent.com/6290720/105951628-b52d7600-60b3-11eb-9666-28055c811a9c.png">
 
-<img width="411" alt="Screen Shot 2020-07-07 at 20 55 03" src="https://user-images.githubusercontent.com/6290720/86777989-ce79c100-c094-11ea-89c5-21a3e8cb5321.png">
+<img width="409" alt="wow" src="https://user-images.githubusercontent.com/6290720/105951620-b363b280-60b3-11eb-82b8-67b9028d74a3.png">
 
-<img width="408" alt="Screen Shot 2020-07-07 at 20 55 17" src="https://user-images.githubusercontent.com/6290720/86777990-cf125780-c094-11ea-91cb-c90ce23bc787.png">
+<img width="412" alt="something-strange" src="https://user-images.githubusercontent.com/6290720/105951626-b494df80-60b3-11eb-9a6a-9613eca98cc0.png">
 
-<img width="409" alt="Screen Shot 2020-07-07 at 20 56 21" src="https://user-images.githubusercontent.com/6290720/86777993-cfaaee00-c094-11ea-9204-15793ed3e986.png">
+<img width="411" alt="feel-good" src="https://user-images.githubusercontent.com/6290720/105951629-b52d7600-60b3-11eb-895f-d024bd27113d.png">
 
-<img width="406" alt="Screen Shot 2020-12-19 at 15 50 08" src="https://user-images.githubusercontent.com/6290720/102683112-f491b880-4211-11eb-9e78-b348a0fd0d1c.png">
+<img width="409" alt="summer-days" src="https://user-images.githubusercontent.com/6290720/105951631-b5c60c80-60b3-11eb-9a5a-56d6e9ad02d3.png">
 
 ### Login screen
 
