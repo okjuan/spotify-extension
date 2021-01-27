@@ -20,6 +20,7 @@ export interface Device {
 export interface TrackInfo {
   title?: string;
   artist?: Artist;
+  repeatState?: RepeatMode;
   isPlaying?: boolean;
   coverPhoto?: string;
   uri?: string;
@@ -54,3 +55,5 @@ export interface PlayPostData {
 }
 
 export type PlayerState = 'nothing' | 'no-song-playing' | 'cache';
+
+export type RepeatMode = 'track' | 'context' | 'off';

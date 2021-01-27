@@ -24,6 +24,7 @@ describe('testing parse', () => {
       coverPhoto: 'https://i.scdn.co/image/ab67616d00001e0230da6905883b7cc2441d7abe',
       uri: 'spotify:track:4JRSFd7IbVbEN3BAJVJFJf',
       progressMs: 9488,
+      repeatState: 'off',
       durationMs: 208440,
       trackUrl: 'https://open.spotify.com/track/4JRSFd7IbVbEN3BAJVJFJf',
       context: {
@@ -48,6 +49,7 @@ describe('testing parse', () => {
       coverPhoto: 'https://i.scdn.co/image/ab67616d00001e0230da6905883b7cc2441d7abe',
       uri: 'spotify:track:4JRSFd7IbVbEN3BAJVJFJf',
       progressMs: 9488,
+      repeatState: 'off',
       durationMs: 208440,
       context: undefined,
       trackUrl: 'https://open.spotify.com/track/4JRSFd7IbVbEN3BAJVJFJf',
@@ -78,6 +80,7 @@ describe('testing parse', () => {
       coverPhoto: '',
       uri: 'spotify:track:4JRSFd7IbVbEN3BAJVJFJf',
       progressMs: 9488,
+      repeatState: 'off',
       durationMs: 208440,
       trackUrl: 'https://open.spotify.com/track/4JRSFd7IbVbEN3BAJVJFJf',
       context: {

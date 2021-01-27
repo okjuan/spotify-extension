@@ -9,7 +9,8 @@ export function shouldUpdateCache(prevTrack: TrackInfo, currentTrack: TrackInfo)
     (currentTrack && currentTrack.isPlaying !== prevTrack.isPlaying) ||
     (currentTrack && currentTrack.uri !== prevTrack.uri) ||
     (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.progressMs !== prevTrack.progressMs) ||
-    (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.isSave !== prevTrack.isSave)
+    (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.isSave !== prevTrack.isSave) ||
+    (currentTrack && currentTrack.uri === prevTrack.uri && currentTrack.repeatState !== prevTrack.repeatState)
   ) {
     return true;
   }
