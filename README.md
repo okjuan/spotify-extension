@@ -41,7 +41,7 @@ When we are working or just browsing it is inconvenient to have to switch to ano
 
 ## How it looks like?
 
-![spotify-extension-1-10](https://user-images.githubusercontent.com/6290720/86778080-e8b39f00-c094-11ea-9763-1b0e23a98ff5.gif)
+![spotify-extension-demo](https://user-images.githubusercontent.com/6290720/105953233-2ec66380-60b6-11eb-805c-bca5aeaa151f.gif)
 
 ### Main screens
 
